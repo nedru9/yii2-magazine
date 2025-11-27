@@ -7,7 +7,11 @@ use app\models\Category;
 use app\models\ContactForm;
 use app\models\LoginForm;
 use app\models\Product;
+use app\models\ProductSearch;
 use Yii;
+use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
+use yii\data\Sort;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -132,19 +136,24 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionBlogDetails()
+    public function actionBlogDetails(): string
     {
         return $this->render('blog-details');
     }
 
     /**
-     * Displays homepage.
+     * Страница товаров
      *
      * @return string
      */
-    public function actionShop()
+    public function actionShop(): string
     {
-        return $this->render('shop');
+        $searchModel = new ProductSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('shop', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**
