@@ -1,0 +1,212 @@
+<?php
+
+namespace app\controllers\menu;
+
+use app\helpers\WebResponse;
+use app\models\Category;
+use app\models\ContactForm;
+use app\models\LoginForm;
+use app\models\Product;
+use Yii;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use yii\web\Controller;
+use yii\web\Response;
+
+class SiteController extends Controller
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::class,
+                'only' => ['logout'],
+                'rules' => [
+                    [
+                        'actions' => [
+                            'logout',
+                            'say',
+                            'index',
+                            'shop-detail',
+                            'about',
+                            'faq',
+                            'contact',
+                            'blog',
+                            'blog-details',
+                            'shop',
+                            'cart',
+                            'checkout',
+                            'wishlist'
+                        ],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::class,
+                'actions' => [
+                    'logout' => ['post'],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * Displays homepage.
+     *
+     * @return string
+     */
+    public function actionIndex()
+    {
+        $categories = Category::find()->all();
+
+        return $this->render('index', ['categories' => $categories]);
+    }
+
+    /**
+     * Displays homepage.
+     *
+     * @return string
+     */
+    public function actionFaq()
+    {
+        return $this->render('faq');
+    }
+
+    /**
+     * Displays homepage.
+     *
+     * @return string
+     */
+    public function actionCheckout()
+    {
+        return $this->render('checkout');
+    }
+
+    /**
+     * Displays homepage.
+     *
+     * @return string
+     */
+    public function actionWishlist()
+    {
+        return $this->render('wishlist');
+    }
+
+    /**
+     * Displays homepage.
+     *
+     * @return string
+     */
+    public function actionCart()
+    {
+        return $this->render('cart');
+    }
+
+    /**
+     * Displays homepage.
+     *
+     * @return string
+     */
+    public function actionContact()
+    {
+        return $this->render('contact');
+    }
+
+    /**
+     * Displays homepage.
+     *
+     * @return string
+     */
+    public function actionBlog()
+    {
+        return $this->render('blog');
+    }
+
+    /**
+     * Displays homepage.
+     *
+     * @return string
+     */
+    public function actionBlogDetails()
+    {
+        return $this->render('blog-details');
+    }
+
+    /**
+     * Displays homepage.
+     *
+     * @return string
+     */
+    public function actionShop()
+    {
+        return $this->render('shop');
+    }
+
+    /**
+     * Отображение страницы товара
+     *
+     * @return Response|string
+     */
+    public function actionShopDetail(): Response|string
+    {
+        try {
+            $product = Product::getProduct(Yii::$app->request->get('id'));
+        } catch (\Exception $e) {
+            WebResponse::setError($e->getMessage());
+
+            return $this->redirect(Yii::$app->request->referrer);
+        }
+
+        return $this->render('shop-details', ['product' => $product]);
+    }
+
+    /**
+     * Отображение страницы О нас
+     *
+     * @return Response|string
+     */
+    public function actionAbout(): Response|string
+    {
+        return $this->render('about');
+    }
+
+    /**
+     * Login action.
+     *
+     * @return Response|string
+     */
+    public function actionLogin()
+    {
+        if (!Yii::$app->user->isGuest) {
+            return $this->goHome();
+        }
+
+        $model = new LoginForm();
+        if ($model->load(Yii::$app->request->post()) && $model->login()) {
+            return $this->goBack();
+        }
+
+        $model->password = '';
+        return $this->render('login', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
+     * Logout action.
+     *
+     * @return Response
+     */
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+
+        return $this->goHome();
+    }
+
+}
