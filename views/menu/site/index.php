@@ -142,9 +142,9 @@ Category Area
                                  data-bg-src="<?= Yii::getAlias('@web') ?>/img/bg/category_card_bg.png"></div>
                             <div class="box-icon"
                                  data-mask-src="<?= Yii::getAlias('@web') ?>/img/bg/category_card_icon_bg.png">
-                                <img src="<?= $category->image; ?>" alt="Image">
+                                <img class="h-100" src="<?= Yii::getAlias('@web').$category->image; ?>" alt="<?= $category->title; ?>">
                             </div>
-                            <h3 class="box-title"><a href="/site/shop"><?= $category->title; ?></a></h3>
+                            <h3 class="box-title"><a href="/site/shop?categoryId=<?= $category->id; ?>"><?= $category->title; ?></a></h3>
                         </div>
                     </div>
                 <?php

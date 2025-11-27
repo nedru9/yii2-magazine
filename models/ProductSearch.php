@@ -8,8 +8,8 @@ use yii\data\ActiveDataProvider;
 
 class ProductSearch extends Model
 {
-    public int $categoryId;
-    public string $sort;
+    public mixed $categoryId = null;
+    public mixed $sort = null;
 
     /**
      * @return array[]
@@ -32,7 +32,7 @@ class ProductSearch extends Model
         $query = Product::find()->where(['status' => 1]);
         $this->load($params, '');
 
-        if ($this->categoryId) {
+        if (!empty($this->categoryId)) {
             $query->andWhere(['categoryId' => $this->categoryId]);
         }
 
