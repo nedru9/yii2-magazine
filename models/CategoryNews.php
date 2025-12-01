@@ -49,4 +49,16 @@ class CategoryNews extends ActiveRecord
 
         return ArrayHelper::map($categories, 'id', 'title');
     }
+
+    /**
+     * Получение категории
+     *
+     * @param int $categoryId
+     *
+     * @return CategoryNews|null
+     */
+    public static function getCategory(int $categoryId): ?CategoryNews
+    {
+        return self::find()->where(['id' => $categoryId])->one();
+    }
 }

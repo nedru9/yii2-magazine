@@ -12,10 +12,15 @@ use yii\db\ActiveRecord;
  * @property string $title Название
  * @property string $content Описание
  * @property string $status Статус
+ * @property string|null $image Изображение
  * @property string $categoryId Id категории
+ *
+ * @property CategoryNews $category Категория
  */
 class News extends ActiveRecord
 {
+    public $imageFile;
+
     /**
      * {@inheritdoc}
      */
@@ -30,10 +35,12 @@ class News extends ActiveRecord
     public function rules(): array
     {
         return [
+            [['image'], 'default', 'value' => null],
             [['title', 'content', 'status', 'categoryId'], 'required'],
             [['status'], 'boolean', 'default', 'value' => true],
             [['categoryId'], 'integer'],
             [['content'], 'string', 'max' => 255],
+            [['imageFile'], 'file', 'extensions' => 'png, jpg, jpeg', 'maxSize' => 5 * 1024 * 1024],
         ];
     }
 

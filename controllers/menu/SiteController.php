@@ -2,12 +2,17 @@
 
 namespace app\controllers\menu;
 
+use app\exceptions\ExceptionFactory;
 use app\helpers\WebResponse;
 use app\models\Category;
+use app\models\CategoryNews;
 use app\models\ContactForm;
 use app\models\LoginForm;
+use app\models\News;
+use app\models\NewsSearch;
 use app\models\Product;
 use app\models\ProductSearch;
+use PHPUnit\Exception;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\data\Pagination;
@@ -128,17 +133,44 @@ class SiteController extends Controller
      */
     public function actionBlog()
     {
-        return $this->render('blog');
+        $searchModel = new NewsSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $categories = CategoryNews::getList();
+        $category = null;
+        $categoryId = $searchModel->categoryId;
+
+        if (!empty($categoryId)) {
+            $category = CategoryNews::getCategory($categoryId);
+        }
+
+        return $this->render('blog', [
+            'dataProvider' => $dataProvider,
+            'categories' => $categories,
+            'category' => $category
+        ]);
     }
 
     /**
-     * Displays homepage.
+     * Отображение детальной новости
      *
-     * @return string
+     * @return Response|string
      */
-    public function actionBlogDetails(): string
+    public function actionBlogDetails(): Response|string
     {
-        return $this->render('blog-details');
+        try {
+            $new = News::findOne(['id' => Yii::$app->request->get('id')]);
+
+            if (empty($new)) {
+                throw ExceptionFactory::entityException('Новость не найдена');
+            }
+        } catch (Exception $e) {
+            WebResponse::setError('Ошибка: '. $e->getMessage());
+
+            return $this->redirect(Yii::$app->request->referrer);
+        }
+
+
+        return $this->render('blog-details', ['new' => $new]);
     }
 
     /**
@@ -150,9 +182,15 @@ class SiteController extends Controller
     {
         $searchModel = new ProductSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $category = null;
+
+        if (!empty($categoryId)) {
+            $category = Category::getCategory($categoryId);
+        }
 
         return $this->render('shop', [
             'dataProvider' => $dataProvider,
+            'category' => $category,
         ]);
     }
 

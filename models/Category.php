@@ -61,4 +61,16 @@ class Category extends ActiveRecord
 
         return ArrayHelper::map($categories, 'id', 'title');
     }
+
+    /**
+     * Получение категории
+     *
+     * @param int $categoryId
+     *
+     * @return self|null
+     */
+    public static function getCategory(int $categoryId): ?self
+    {
+        return self::find()->where(['id' => $categoryId])->one();
+    }
 }

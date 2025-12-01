@@ -1,12 +1,11 @@
 <?php
 
 use app\models\Category;
-use app\models\Product;
 use yii\data\ActiveDataProvider;
-use yii\data\Pagination;
 use yii\widgets\LinkPager;
 
 /* @var ActiveDataProvider $dataProvider; */
+/* @var Category|null $category; */
 
 $pages = $dataProvider->getPagination();
 $sort = $dataProvider->sort;
