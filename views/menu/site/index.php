@@ -126,37 +126,44 @@ Hero Area
 <!--==============================
 Category Area  
 ==============================-->
-<section class="space-top">
-    <div class="container">
-        <div class="title-area text-center">
-            <span class="sub-title"><img src="<?= Yii::getAlias('@web') ?>/img/theme-img/title_icon.svg" alt="Icon">Категории продуктов</span>
-            <h2 class="sec-title">Что мы предлагаем</h2>
-        </div>
-        <div class="swiper th-slider"
-             data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"400":{"slidesPerView":"2"},"768":{"slidesPerView":"3"},"992":{"slidesPerView":"4"},"1200":{"slidesPerView":"5"}}}'>
-            <div class="swiper-wrapper">
-                <?php
-                foreach ($categories as $category): ?>
-                    <div class="swiper-slide">
-                        <div class="category-card">
-                            <div class="box-shape"
-                                 data-bg-src="<?= Yii::getAlias('@web') ?>/img/bg/category_card_bg.png"></div>
-                            <div class="box-icon"
-                                 data-mask-src="<?= Yii::getAlias('@web') ?>/img/bg/category_card_icon_bg.png">
-                                <img class="h-100" src="<?= Yii::getAlias('@web') . $category->image; ?>"
-                                     alt="<?= $category->title; ?>">
+
+<?php
+if (!empty($categories)): ?>
+
+    <section class="space-top">
+        <div class="container">
+            <div class="title-area text-center">
+                <span class="sub-title"><img src="<?= Yii::getAlias('@web') ?>/img/theme-img/title_icon.svg" alt="Icon">Категории продуктов</span>
+                <h2 class="sec-title">Что мы предлагаем</h2>
+            </div>
+            <div class="swiper th-slider"
+                 data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"400":{"slidesPerView":"2"},"768":{"slidesPerView":"3"},"992":{"slidesPerView":"4"},"1200":{"slidesPerView":"5"}}}'>
+                <div class="swiper-wrapper">
+                    <?php
+                    foreach ($categories as $category): ?>
+                        <div class="swiper-slide">
+                            <div class="category-card">
+                                <div class="box-shape"
+                                     data-bg-src="<?= Yii::getAlias('@web') ?>/img/bg/category_card_bg.png"></div>
+                                <div class="box-icon"
+                                     data-mask-src="<?= Yii::getAlias('@web') ?>/img/bg/category_card_icon_bg.png">
+                                    <img class="h-100" src="<?= Yii::getAlias('@web') . $category->image; ?>"
+                                         alt="<?= $category->title; ?>">
+                                </div>
+                                <h3 class="box-title"><a
+                                            href="/site/shop?categoryId=<?= $category->id; ?>"><?= $category->title; ?></a>
+                                </h3>
                             </div>
-                            <h3 class="box-title"><a
-                                        href="/site/shop?categoryId=<?= $category->id; ?>"><?= $category->title; ?></a>
-                            </h3>
                         </div>
-                    </div>
-                <?php
-                endforeach; ?>
+                    <?php
+                    endforeach; ?>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+<?php
+endif; ?>
 <!--==============================
 About Area  
 ==============================-->
@@ -659,7 +666,8 @@ Blog Area
                                         </a>
                                     </div>
                                     <h3 class="box-title"><a
-                                                href="/site/blog-details?id=<?= $new->id; ?>"><?= $new->title; ?></a></h3>
+                                                href="/site/blog-details?id=<?= $new->id; ?>"><?= $new->title; ?></a>
+                                    </h3>
                                     <a href="/site/blog-details?id=<?= $new->id; ?>" class="th-btn btn-sm style4">Узнать
                                         больше<i
                                                 class="fas fa-chevrons-right ms-2"></i></a>
