@@ -28,7 +28,7 @@ class m251121_150742_create_category_table extends Migration
         $this->addForeignKey(
             'fk_category_parent',
             '{{%category}}',
-            'parent_id',
+            'parentId',
             '{{%category}}',
             'id',
             'SET NULL',

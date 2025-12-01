@@ -31,7 +31,7 @@ class m251121_151235_create_product_table extends Migration
         $this->addForeignKey(
             'fk_product_category',
             '{{%product}}',
-            'category_id',
+            'categoryId',
             '{{%category}}',
             'id',
             'CASCADE'
