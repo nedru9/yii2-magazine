@@ -41,9 +41,10 @@ class Product extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['category_id', 'description', 'image'], 'default', 'value' => null],
-            [['status'], 'default', 'value' => 1],
-            [['category_id', 'status'], 'integer'],
+            [['categoryId', 'description', 'image'], 'default', 'value' => null],
+            [['status'], 'default', 'value' => true],
+            [['categoryId'], 'integer'],
+            [['status'], 'boolean'],
             [['title', 'price'], 'required'],
             [['price'], 'number'],
             [['description'], 'string'],
@@ -59,7 +60,7 @@ class Product extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'category_id' => 'Id категории',
+            'categoryId' => 'Id категории',
             'title' => 'Название',
             'price' => 'Цена',
             'description' => 'Описание',
