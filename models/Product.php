@@ -19,6 +19,7 @@ use function PHPUnit\Framework\throwException;
  * @property string|null $description Описание
  * @property string|null $image Изображение
  * @property int|null $status Статус
+ * @property int $count Количество
  *
  * @property Category $category Категория
  */
@@ -43,7 +44,7 @@ class Product extends ActiveRecord
         return [
             [['categoryId', 'description', 'image'], 'default', 'value' => null],
             [['status'], 'default', 'value' => true],
-            [['categoryId'], 'integer'],
+            [['categoryId', 'count'], 'integer'],
             [['status'], 'boolean'],
             [['title', 'price'], 'required'],
             [['price'], 'number'],
@@ -66,6 +67,7 @@ class Product extends ActiveRecord
             'description' => 'Описание',
             'image' => 'Изображение',
             'status' => 'Статус',
+            'count' => 'Количество',
         ];
     }
 
@@ -121,12 +123,8 @@ class Product extends ActiveRecord
      *
      * @return Product
      */
-    public static function getProduct(?int $id): Product
+    public static function getProduct(int $id): Product
     {
-        if ($id === null) {
-            throw  ExceptionFactory::entityException('Не задан Id товара');
-        }
-
         $product = self::findOne($id);
 
         if (empty($product)) {
