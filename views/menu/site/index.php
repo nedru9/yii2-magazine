@@ -1,6 +1,7 @@
 <?php
 /**
  * @var Category[] $categories
+ * @var News[] $news
  */
 
 use app\models\Category;
@@ -142,9 +143,12 @@ Category Area
                                  data-bg-src="<?= Yii::getAlias('@web') ?>/img/bg/category_card_bg.png"></div>
                             <div class="box-icon"
                                  data-mask-src="<?= Yii::getAlias('@web') ?>/img/bg/category_card_icon_bg.png">
-                                <img class="h-100" src="<?= Yii::getAlias('@web').$category->image; ?>" alt="<?= $category->title; ?>">
+                                <img class="h-100" src="<?= Yii::getAlias('@web') . $category->image; ?>"
+                                     alt="<?= $category->title; ?>">
                             </div>
-                            <h3 class="box-title"><a href="/site/shop?categoryId=<?= $category->id; ?>"><?= $category->title; ?></a></h3>
+                            <h3 class="box-title"><a
+                                        href="/site/shop?categoryId=<?= $category->id; ?>"><?= $category->title; ?></a>
+                            </h3>
                         </div>
                     </div>
                 <?php
@@ -446,8 +450,10 @@ Feature Area
                     <span class="sub-title"><img src="<?= Yii::getAlias('@web') ?>/img/theme-img/title_icon.svg"
                                                  alt="shape">Почему Вы выбрали именно Нас</span>
                     <h2 class="sec-title">Питайте свое тело чистой органической пищей!</h2>
-                    <p class="sec-text">Правительства устанавливают правила, гарантирующие соответствие продукции, обозначенной как органическая
-                        , определенным стандартам. Для поддержания целостности органической этикетки проводятся регулярные проверки и аудиты
+                    <p class="sec-text">Правительства устанавливают правила, гарантирующие соответствие продукции,
+                        обозначенной как органическая
+                        , определенным стандартам. Для поддержания целостности органической этикетки проводятся
+                        регулярные проверки и аудиты
                         .</p>
                 </div>
             </div>
@@ -573,9 +579,11 @@ Testimonial Area
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <div class="testi-card">
-                                <p class="testi-card_text">“Наши методы ведения органического сельского хозяйства работают в гармонии с природой.
+                                <p class="testi-card_text">“Наши методы ведения органического сельского хозяйства
+                                    работают в гармонии с природой.
                                     Избегая синтетических химикатов, мы помогаем защитить полезных насекомых, птиц и
-                                    других представителей дикой природы, которые жизненно важны для сбалансированной экосистемы.
+                                    других представителей дикой природы, которые жизненно важны для сбалансированной
+                                    экосистемы.
                                     Органические продукты часто обладают более насыщенным вкусом.”</p>
                                 <div class="testi-card_profile">
                                     <div class="testi-card_avater">
@@ -591,9 +599,12 @@ Testimonial Area
                         </div>
                         <div class="swiper-slide">
                             <div class="testi-card">
-                                <p class="testi-card_text">“Методы выращивания свежих продуктов работают в гармонии с природой.
-                                    Избегая синтетических химикатов, мы помогаем защитить полезных насекомых, птиц и других
-                                    представителей дикой природы, которые жизненно важны для сбалансированной экосистемы.
+                                <p class="testi-card_text">“Методы выращивания свежих продуктов работают в гармонии с
+                                    природой.
+                                    Избегая синтетических химикатов, мы помогаем защитить полезных насекомых, птиц и
+                                    других
+                                    представителей дикой природы, которые жизненно важны для сбалансированной
+                                    экосистемы.
                                     Органические продукты помогают поддерживать себя в форме.”</p>
                                 <div class="testi-card_profile">
                                     <div class="testi-card_avater">
@@ -634,21 +645,28 @@ Blog Area
                  data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"1"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"2"},"1200":{"slidesPerView":"3"}}}'>
                 <div class="swiper-wrapper">
                     <div class="swiper-slide">
-                        <div class="blog-card">
-                            <div class="blog-img">
-                                <img src="<?= Yii::getAlias('@web') ?>/img/blog/blog_1_1.jpg" alt="blog image">
-                            </div>
-                            <div class="blog-content">
-                                <div class="blog-meta">
-                                    <a href="blog.php"><i class="far fa-user"></i>By Frutin</a>
-                                    <a href="blog.php"><i class="far fa-calendar"></i>15 March, 2023</a>
+                        <?php
+                        foreach ($news as $new): ?>
+                            <div class="blog-card">
+                                <div class="blog-img">
+                                    <img src="<?= $new->image; ?>" alt="<?= $new->title; ?>">
                                 </div>
-                                <h3 class="box-title"><a href="blog-details.php">Change Your Eating Habits With Organic
-                                        Food</a></h3>
-                                <a href="blog-details.php" class="th-btn btn-sm style4">Узнать больше<i
-                                            class="fas fa-chevrons-right ms-2"></i></a>
+                                <div class="blog-content">
+                                    <div class="blog-meta">
+                                        <a href="/site/blog-details?id=<?= $new->id; ?>">
+                                            <i class="far fa-calendar"></i>
+                                            <?= Yii::$app->formatter->asDate($new->date); ?>
+                                        </a>
+                                    </div>
+                                    <h3 class="box-title"><a
+                                                href="/site/blog-details?id=<?= $new->id; ?>"><?= $new->title; ?></a></h3>
+                                    <a href="/site/blog-details?id=<?= $new->id; ?>" class="th-btn btn-sm style4">Узнать
+                                        больше<i
+                                                class="fas fa-chevrons-right ms-2"></i></a>
+                                </div>
                             </div>
-                        </div>
+                        <?php
+                        endforeach; ?>
                     </div>
                 </div>
             </div>

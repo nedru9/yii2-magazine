@@ -72,8 +72,15 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $categories = Category::find()->all();
+        $news = News::find()->all();
 
-        return $this->render('index', ['categories' => $categories]);
+        return $this->render(
+            'index',
+            [
+                'categories' => $categories,
+                'news' => $news,
+            ]
+        );
     }
 
     /**
@@ -164,7 +171,7 @@ class SiteController extends Controller
                 throw ExceptionFactory::entityException('Новость не найдена');
             }
         } catch (Exception $e) {
-            WebResponse::setError('Ошибка: '. $e->getMessage());
+            WebResponse::setError('Ошибка: ' . $e->getMessage());
 
             return $this->redirect(Yii::$app->request->referrer);
         }
