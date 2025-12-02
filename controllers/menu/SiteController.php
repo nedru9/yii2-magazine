@@ -192,8 +192,8 @@ class SiteController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $category = null;
 
-        if (!empty($categoryId)) {
-            $category = Category::getCategory($categoryId);
+        if (!empty($searchModel->categoryId)) {
+            $category = Category::getCategory($searchModel->categoryId);
         }
 
         return $this->render('shop', [

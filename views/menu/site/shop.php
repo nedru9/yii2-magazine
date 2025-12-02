@@ -90,9 +90,9 @@ Product Area
                                 </div>
                             </div>
                             <div class="product-content">
-                                <a href="shop-details.php"
+                                <a href="/site/shop-detail?id=<?= $product->id; ?>"
                                    class="product-category"><?= !empty($product->category->title) ? $product->category->title : 'Отсутствует'; ?></a>
-                                <h3 class="product-title"><a href="shop-details.php"><?= $product->title; ?></a></h3>
+                                <h3 class="product-title"><a href="/site/shop-detail?id=<?= $product->id; ?>"><?= $product->title; ?></a></h3>
                                 <span class="price"><?= $product->price; ?>₽</span>
                             </div>
                         </div>

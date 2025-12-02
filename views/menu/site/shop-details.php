@@ -8,9 +8,12 @@
 use app\models\Product;
 
 $this->title = $product->title;
-$this->params['breadcrumbs'][] = ['url' => '/dms/index', 'label' => 'Страхование ДМС']; //товары
-$this->params['breadcrumbs'][] = ['url' => '/dms/clinic-dictionary', 'label' => 'Справочник клиник']; //категория
-$this->params['breadcrumbs'][] = $this->title; //товар
+$this->params['breadcrumbs'][] = ['url' => '/site/shop', 'label' => 'Товары'];
+$this->params['breadcrumbs'][] = [
+    'url' => '/site/shop?categoryId=' . $product->categoryId,
+    'label' => $product->category->title
+];
+$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <!--==============================
@@ -114,31 +117,40 @@ $this->params['breadcrumbs'][] = $this->title; //товар
                  data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"2"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"3"},"1200":{"slidesPerView":"4"}}}'>
                 <div class="swiper-wrapper">
                     <?php
-                    foreach ($products as $otherProduct): ?>
+                    if (count($products) > 1): ?>
                         <?php
-                        if ($otherProduct->id !== $product->id): ?>
-
-                            <div class="swiper-slide">
-                                <div class="th-product product-grid">
-                                    <div class="product-img">
-                                        <img src="<?= $otherProduct->image; ?>" alt="<?= $otherProduct->title; ?>">
-                                        <div class="actions">
-                                            <a href="cart.php" class="icon-btn"><i class="far fa-cart-plus"></i></a>
-                                            <a href="wishlist.php" class="icon-btn"><i class="far fa-heart"></i></a>
+                        foreach ($products as $otherProduct): ?>
+                            <?php
+                            if ($otherProduct->id !== $product->id): ?>
+                                <div class="swiper-slide">
+                                    <div class="th-product product-grid">
+                                        <div class="product-img">
+                                            <img src="<?= $otherProduct->image; ?>" alt="<?= $otherProduct->title; ?>">
+                                            <div class="actions">
+                                                <a href="cart.php" class="icon-btn"><i class="far fa-cart-plus"></i></a>
+                                                <a href="wishlist.php" class="icon-btn"><i class="far fa-heart"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="product-content">
+                                            <a href="/site/shop?categoryId=<?= $otherProduct->categoryId; ?>"
+                                               class="product-category"><?= $otherProduct->category->title; ?></a>
+                                            <h3 class="product-title"><a
+                                                        href="/site/shop-detail?id=<?= $otherProduct->id; ?>"><?= $otherProduct->title; ?></a>
+                                            </h3>
+                                            <span class="price"><?= $otherProduct->price; ?>₽</span>
                                         </div>
                                     </div>
-                                    <div class="product-content">
-                                        <a href="/site/shop?categoryId=<?= $otherProduct->categoryId; ?>" class="product-category"><?= $otherProduct->category->title; ?></a>
-                                        <h3 class="product-title"><a href="/site/shop-detail?id=<?= $otherProduct->id; ?>"><?= $otherProduct->title; ?></a></h3>
-                                        <span class="price"><?= $otherProduct->price; ?>₽</span>
-                                    </div>
                                 </div>
-                            </div>
 
+                            <?php
+                            endif; ?>
                         <?php
-                        endif; ?>
+                        endforeach; ?>
                     <?php
-                    endforeach; ?>
+                    else: ?>
+                        Похожие товары отсутствуют
+                    <?php
+                    endif; ?>
                 </div>
             </div>
             <div class="d-block d-md-none mt-40 text-center">
