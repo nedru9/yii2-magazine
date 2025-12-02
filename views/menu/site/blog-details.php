@@ -5,6 +5,7 @@ use app\models\News;
 /* @var News $new ; */
 $this->title = $new->title;
 $this->params['breadcrumbs'][] = ['url' => '/site/blog', 'label' => 'Блог'];
+$this->params['breadcrumbs'][] = ['url' => '/site/blog?categoryId='.$new->categoryId, 'label' => $new->category->title];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
