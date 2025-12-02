@@ -79,6 +79,7 @@ class SiteController extends Controller
             [
                 'categories' => $categories,
                 'news' => $news,
+                'products' => Product::find()->all(),
             ]
         );
     }
@@ -210,13 +211,14 @@ class SiteController extends Controller
     {
         try {
             $product = Product::getProduct(Yii::$app->request->get('id'));
+            $products = Product::findAll(['categoryId' => $product->categoryId]);
         } catch (\Exception $e) {
             WebResponse::setError($e->getMessage());
 
             return $this->redirect(Yii::$app->request->referrer);
         }
 
-        return $this->render('shop-details', ['product' => $product]);
+        return $this->render('shop-details', ['product' => $product, 'products' => $products]);
     }
 
     /**
