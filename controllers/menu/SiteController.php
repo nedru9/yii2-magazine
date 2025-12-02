@@ -2,6 +2,7 @@
 
 namespace app\controllers\menu;
 
+use app\entities\Favorite;
 use app\exceptions\ExceptionFactory;
 use app\helpers\WebResponse;
 use app\models\Category;
@@ -17,6 +18,7 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
+use yii\web\Cookie;
 use yii\web\Response;
 
 class SiteController extends Controller
@@ -209,18 +211,14 @@ class SiteController extends Controller
     {
         try {
             $product = Product::getProduct(Yii::$app->request->get('id'));
-            $favorite = Wishlist::findFavorite($product->id);
-
-            if ($favorite === null) {
-                Wishlist::addFavorite($product->id);
-            } else {
-                $favorite->delete();
-            }
+            Favorite::toggleFavorite($product->id, Yii::$app->request);
+            $favorites = Favorite::getFavorites(Yii::$app->response);
+            $favoritesCount = count($favorites);
         } catch (\Exception $e) {
             return WebResponse::ajaxError($e->getMessage());
         }
 
-        return WebResponse::ajaxSuccess(['favorite' => Yii::$app->user->identity->getFavoriteCount()]);
+        return WebResponse::ajaxSuccess(['favorites' => $favorites, 'favoritesCount' => $favoritesCount]);
     }
 
 

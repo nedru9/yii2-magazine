@@ -813,8 +813,12 @@
                 }
 
                 let response = ajaxResponse.getData()
-                let star = response.favorite === true ? '<i class="fas fa-heart"></i>' : '<i class="far fa-heart"></i>';
-                $('.favorite.simple-icon').html(response.favorite);
+                let isFavorite = response.favorites.some(function(item) {
+                    return item == productId;
+                });
+
+                let star = isFavorite === true ? '<i class="fas fa-heart"></i>' : '<i class="far fa-heart"></i>';
+                $('.favorite.simple-icon span').html(response.favoritesCount);
 
                 callbackParams.starButton.html(star);
             },

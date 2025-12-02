@@ -4,7 +4,10 @@
 
 /** @var string $content */
 
+/** @var int $favoriteCount */
+
 use app\assets\AppAsset;
+use app\entities\Favorite;
 use app\widgets\Alert;
 use yii\bootstrap\Html;
 use yii\bootstrap\Nav;
@@ -307,14 +310,10 @@ $this->beginBody() ?>
                         <div class="header-button">
                             <button type="button" class="simple-icon searchBoxToggler"><i class="far fa-search"></i>
                             </button>
-                            <?php
-                            if (!Yii::$app->user->isGuest): ?>
-                                <a class="favorite simple-icon" href="/site/wishlist">
-                                    <span class="badge"><?= Yii::$app->user->identity->getFavoriteCount(); ?></span>
-                                    <i class="fa-regular fa-heart"></i>
-                                </a>
-                            <?php
-                            endif; ?>
+                            <a class="favorite simple-icon" href="/site/wishlist">
+                                <span class="badge"><?= count(Favorite::getFavorites()); ?></span>
+                                <i class="fa-regular fa-heart"></i>
+                            </a>
                             <button type="button" class="simple-icon sideMenuToggler">
                                 <span class="badge">5</span>
                                 <i class="fa-regular fa-cart-shopping"></i>

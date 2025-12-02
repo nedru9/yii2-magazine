@@ -5,6 +5,7 @@
  * @var Product[] $products
  */
 
+use app\entities\Favorite;
 use app\models\Category;
 use app\models\News;
 use app\models\Product;
@@ -258,21 +259,17 @@ Product Area
                             <div class="actions">
                                 <a href="cart.php?id=<?= $product->id; ?>" class="icon-btn"><i
                                             class="far fa-cart-plus"></i></a>
-                                <?php
-                                if (!Yii::$app->user->isGuest): ?>
-                                    <a href="javascript:void(0)" class="icon-btn star--product--js"
-                                       data-product="<?= $product->id; ?>">
-                                        <?php
-                                        if (!empty($product->favorite)): ?>
-                                            <i class="fas fa-heart"></i>
-                                        <?php
-                                        else: ?>
-                                            <i class="far fa-heart"></i>
-                                        <?php
-                                        endif; ?>
-                                    </a>
-                                <?php
-                                endif; ?>
+                                <a href="javascript:void(0)" class="icon-btn star--product--js"
+                                   data-product="<?= $product->id; ?>">
+                                    <?php
+                                    if (Favorite::isFavorite($product->id)): ?>
+                                        <i class="fas fa-heart"></i>
+                                    <?php
+                                    else: ?>
+                                        <i class="far fa-heart"></i>
+                                    <?php
+                                    endif; ?>
+                                </a>
                             </div>
                         </div>
                         <div class="product-content">

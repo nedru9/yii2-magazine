@@ -132,7 +132,7 @@ class Product extends ActiveRecord
     /**
      * Поиск товара по Id
      *
-     * @param int|null $id
+     * @param int $id
      *
      * @return Product
      */
@@ -141,7 +141,7 @@ class Product extends ActiveRecord
         $product = self::findOne($id);
 
         if (empty($product)) {
-            throw  ExceptionFactory::entityException('Товар не найден');
+            throw ExceptionFactory::entityException('Товар не найден');
         }
 
         return $product;
