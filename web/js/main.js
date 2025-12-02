@@ -776,6 +776,54 @@
             }
         });
     });
+
+    let body = $('body');
+
+    /**
+     * Добавление в избранное
+     */
+    body.on('click', '.star--product--js', function () {
+        let changeButton = $(this);
+        let productId = changeButton.data('product');
+
+        let sender = new AjaxSender({
+            buttonBlock: changeButton,
+        })
+
+        let changeStarType = function (ajaxResponse, callbackParams = {}) {
+            if (ajaxResponse.hasErrorStatus()) {
+                return false;
+            }
+
+            let response = ajaxResponse.getData()
+            let star = response.favorite === true ? '<i class="fas fa-heart"></i>' : '<i class="far fa-heart"></i>';
+
+            callbackParams.starButton.html(star);
+        }
+
+        sender.send({
+            action: '/site/favorite-product',
+            type: 'GET',
+            queryParams: {
+                id: productId
+            },
+            successCallback: function (ajaxResponse, callbackParams = {}) {
+                if (ajaxResponse.hasErrorStatus()) {
+                    return false;
+                }
+
+                let response = ajaxResponse.getData()
+                let star = response.favorite === true ? '<i class="fas fa-heart"></i>' : '<i class="far fa-heart"></i>';
+                $('.favorite.simple-icon').html(response.favorite);
+
+                callbackParams.starButton.html(star);
+            },
+            callbackParams: {
+                starButton: changeButton,
+            }
+        });
+
+    })
     
     // /*----------- 00. Right Click Disable ----------*/
     //   window.addEventListener('contextmenu', function (e) {

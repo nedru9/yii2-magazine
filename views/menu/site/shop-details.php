@@ -63,7 +63,21 @@ $this->params['breadcrumbs'][] = $this->title;
                             <button class="th-btn">В корзину</button>
                         <?php
                         endif; ?>
-                        <a href="wishlist.php" class="icon-btn"><i class="far fa-heart"></i></a>
+                        <?php
+                        if (!Yii::$app->user->isGuest): ?>
+                            <a href="javascript:void(0)" class="icon-btn star--product--js"
+                               data-product="<?= $product->id; ?>">
+                                <?php
+                                if (!empty($product->favorite)): ?>
+                                    <i class="fas fa-heart"></i>
+                                <?php
+                                else: ?>
+                                    <i class="far fa-heart"></i>
+                                <?php
+                                endif; ?>
+                            </a>
+                        <?php
+                        endif; ?>
                     </div>
                     <div class="product_meta">
                         <?php
@@ -128,7 +142,21 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <img src="<?= $otherProduct->image; ?>" alt="<?= $otherProduct->title; ?>">
                                             <div class="actions">
                                                 <a href="cart.php" class="icon-btn"><i class="far fa-cart-plus"></i></a>
-                                                <a href="wishlist.php" class="icon-btn"><i class="far fa-heart"></i></a>
+                                                <?php
+                                                if (!Yii::$app->user->isGuest): ?>
+                                                    <a href="javascript:void(0)" class="icon-btn star--product--js"
+                                                       data-product="<?= $product->id; ?>">
+                                                        <?php
+                                                        if (!empty($product->favorite)): ?>
+                                                            <i class="fas fa-heart"></i>
+                                                        <?php
+                                                        else: ?>
+                                                            <i class="far fa-heart"></i>
+                                                        <?php
+                                                        endif; ?>
+                                                    </a>
+                                                <?php
+                                                endif; ?>
                                             </div>
                                         </div>
                                         <div class="product-content">

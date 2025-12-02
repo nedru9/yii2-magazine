@@ -307,10 +307,14 @@ $this->beginBody() ?>
                         <div class="header-button">
                             <button type="button" class="simple-icon searchBoxToggler"><i class="far fa-search"></i>
                             </button>
-                            <a class="simple-icon" href="/site/wishlist">
-                                <span class="badge">5</span>
-                                <i class="fa-regular fa-heart"></i>
-                            </a>
+                            <?php
+                            if (!Yii::$app->user->isGuest): ?>
+                                <a class="favorite simple-icon" href="/site/wishlist">
+                                    <span class="badge"><?= Yii::$app->user->identity->getFavoriteCount(); ?></span>
+                                    <i class="fa-regular fa-heart"></i>
+                                </a>
+                            <?php
+                            endif; ?>
                             <button type="button" class="simple-icon sideMenuToggler">
                                 <span class="badge">5</span>
                                 <i class="fa-regular fa-cart-shopping"></i>

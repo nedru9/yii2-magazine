@@ -22,6 +22,7 @@ use function PHPUnit\Framework\throwException;
  * @property int $count Количество
  *
  * @property Category $category Категория
+ * @property Wishlist $favorite Избранное
  */
 class Product extends ActiveRecord
 {
@@ -81,6 +82,18 @@ class Product extends ActiveRecord
     public function getCategory(): ActiveQuery
     {
         return $this->hasOne(Category::class, ['id' => 'categoryId']);
+    }
+
+    /**
+     * Получение избранного
+     *
+     * @return ActiveQuery
+     *
+     * @see favorite
+     */
+    public function getFavorite(): ActiveQuery
+    {
+        return $this->hasOne(Wishlist::class, ['productId' => 'id']);
     }
 
     /**

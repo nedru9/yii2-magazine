@@ -6,17 +6,14 @@ use app\exceptions\ExceptionFactory;
 use app\helpers\WebResponse;
 use app\models\Category;
 use app\models\CategoryNews;
-use app\models\ContactForm;
 use app\models\LoginForm;
 use app\models\News;
 use app\models\NewsSearch;
 use app\models\Product;
 use app\models\ProductSearch;
+use app\models\Wishlist;
 use PHPUnit\Exception;
 use Yii;
-use yii\data\ActiveDataProvider;
-use yii\data\Pagination;
-use yii\data\Sort;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
@@ -48,7 +45,8 @@ class SiteController extends Controller
                             'shop',
                             'cart',
                             'checkout',
-                            'wishlist'
+                            'wishlist',
+                            'favorite-product'
                         ],
                         'allow' => true,
                         'roles' => ['@'],
@@ -201,6 +199,30 @@ class SiteController extends Controller
             'category' => $category,
         ]);
     }
+
+    /**
+     * Добавление в избранное
+     *
+     * @return string
+     */
+    public function actionFavoriteProduct(): string
+    {
+        try {
+            $product = Product::getProduct(Yii::$app->request->get('id'));
+            $favorite = Wishlist::findFavorite($product->id);
+
+            if ($favorite === null) {
+                Wishlist::addFavorite($product->id);
+            } else {
+                $favorite->delete();
+            }
+        } catch (\Exception $e) {
+            return WebResponse::ajaxError($e->getMessage());
+        }
+
+        return WebResponse::ajaxSuccess(['favorite' => Yii::$app->user->identity->getFavoriteCount()]);
+    }
+
 
     /**
      * Отображение страницы товара

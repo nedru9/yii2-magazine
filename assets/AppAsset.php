@@ -24,10 +24,17 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
     ];
-    public $js = [
-    ];
     public $depends = [
         YiiAsset::class,
         BootstrapPluginAsset::class,
+    ];
+
+    public $js = [
+        'js/classes/Alert.js',
+        'js/classes/AjaxFormSenderClass.js',
+        'js/classes/AjaxResponseClass.js',
+        'js/classes/AnimatedButton.js',
+        'js/classes/AjaxSender.js',
+        'js/classes/Helper.js',
     ];
 }

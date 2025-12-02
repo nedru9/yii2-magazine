@@ -103,4 +103,15 @@ class User extends ActiveRecord implements \yii\web\IdentityInterface
     {
         return $this->password === $password;
     }
+
+    /**
+     * Получение количества избранных товаров
+     *
+     * @return bool|int|string|null
+     */
+    public function getFavoriteCount(): bool|int|string|null
+    {
+        return Wishlist::find()->where(['userId' => 1])->count();
+        //return Wishlist::find()->where(['userId' => $this->id])->count();
+    }
 }

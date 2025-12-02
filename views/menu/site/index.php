@@ -241,29 +241,52 @@ Product Area
         <div class="filter-menu indicator-active filter-menu-active">
 
             <button data-filter="*" class="th-btn tab-btn active" type="button">Все</button>
-            <?php foreach ($categories as $category): ?>
-            <button data-filter=".cat<?= $category->id; ?>" class="th-btn tab-btn" type="button"><?= $category->title; ?></button>
-            <?php endforeach; ?>
+            <?php
+            foreach ($categories as $category): ?>
+                <button data-filter=".cat<?= $category->id; ?>" class="th-btn tab-btn"
+                        type="button"><?= $category->title; ?></button>
+            <?php
+            endforeach; ?>
         </div>
         <div class="row gy-4 filter-active">
-            <?php foreach ($products as $product): ?>
+            <?php
+            foreach ($products as $product): ?>
                 <div class="col-xl-3 col-lg-4 col-sm-6 filter-item cat<?= $product->categoryId; ?>">
                     <div class="th-product product-grid">
                         <div class="product-img">
                             <img src="<?= $product->image; ?>" alt="<?= $product->title; ?>">
                             <div class="actions">
-                                <a href="cart.php?id=<?= $product->id; ?>" class="icon-btn"><i class="far fa-cart-plus"></i></a>
-                                <a href="wishlist.php?id=<?= $product->id; ?>" class="icon-btn"><i class="far fa-heart"></i></a>
+                                <a href="cart.php?id=<?= $product->id; ?>" class="icon-btn"><i
+                                            class="far fa-cart-plus"></i></a>
+                                <?php
+                                if (!Yii::$app->user->isGuest): ?>
+                                    <a href="javascript:void(0)" class="icon-btn star--product--js"
+                                       data-product="<?= $product->id; ?>">
+                                        <?php
+                                        if (!empty($product->favorite)): ?>
+                                            <i class="fas fa-heart"></i>
+                                        <?php
+                                        else: ?>
+                                            <i class="far fa-heart"></i>
+                                        <?php
+                                        endif; ?>
+                                    </a>
+                                <?php
+                                endif; ?>
                             </div>
                         </div>
                         <div class="product-content">
-                            <a href="/site/shop-detail?id=<?= $product->id; ?>" class="product-category"><?= $product->category->title; ?></a>
-                            <h3 class="product-title"><a href="/site/shop-detail?id=<?= $product->id; ?>"><?= $product->title; ?></a></h3>
+                            <a href="/site/shop-detail?id=<?= $product->id; ?>"
+                               class="product-category"><?= $product->category->title; ?></a>
+                            <h3 class="product-title"><a
+                                        href="/site/shop-detail?id=<?= $product->id; ?>"><?= $product->title; ?></a>
+                            </h3>
                             <span class="price"><?= $product->price; ?>₽</span>
                         </div>
                     </div>
                 </div>
-            <?php endforeach; ?>
+            <?php
+            endforeach; ?>
         </div>
     </div>
 </section> <!--==============================

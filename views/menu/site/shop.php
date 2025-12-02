@@ -86,13 +86,29 @@ Product Area
                                     ) . '/img/no-photo.png'; ?>" alt="<?= $product->title; ?>">
                                 <div class="actions">
                                     <a href="cart.php" class="icon-btn"><i class="far fa-cart-plus"></i></a>
-                                    <a href="wishlist.php" class="icon-btn"><i class="far fa-heart"></i></a>
+                                    <?php
+                                    if (!Yii::$app->user->isGuest): ?>
+                                        <a href="javascript:void(0)" class="icon-btn star--product--js"
+                                           data-product="<?= $product->id; ?>">
+                                            <?php
+                                            if (!empty($product->favorite)): ?>
+                                                <i class="fas fa-heart"></i>
+                                            <?php
+                                            else: ?>
+                                                <i class="far fa-heart"></i>
+                                            <?php
+                                            endif; ?>
+                                        </a>
+                                    <?php
+                                    endif; ?>
                                 </div>
                             </div>
                             <div class="product-content">
                                 <a href="/site/shop-detail?id=<?= $product->id; ?>"
                                    class="product-category"><?= !empty($product->category->title) ? $product->category->title : 'Отсутствует'; ?></a>
-                                <h3 class="product-title"><a href="/site/shop-detail?id=<?= $product->id; ?>"><?= $product->title; ?></a></h3>
+                                <h3 class="product-title"><a
+                                            href="/site/shop-detail?id=<?= $product->id; ?>"><?= $product->title; ?></a>
+                                </h3>
                                 <span class="price"><?= $product->price; ?>₽</span>
                             </div>
                         </div>
