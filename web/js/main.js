@@ -790,17 +790,6 @@
             buttonBlock: changeButton,
         })
 
-        let changeStarType = function (ajaxResponse, callbackParams = {}) {
-            if (ajaxResponse.hasErrorStatus()) {
-                return false;
-            }
-
-            let response = ajaxResponse.getData()
-            let star = response.favorite === true ? '<i class="fas fa-heart"></i>' : '<i class="far fa-heart"></i>';
-
-            callbackParams.starButton.html(star);
-        }
-
         sender.send({
             action: '/site/favorite-product',
             type: 'GET',
@@ -828,6 +817,56 @@
         });
 
     })
+
+
+    /**
+     * Удаление из избранного
+     */
+    body.on('click', '.favorite-remove--js', function () {
+        let changeButton = $(this);
+        let productId = changeButton.data('product');
+
+        let sender = new AjaxSender({
+            buttonBlock: changeButton,
+        })
+
+        sender.send({
+            action: '/site/favorite-product',
+            type: 'GET',
+            queryParams: {
+                id: productId
+            },
+            successCallback: function (ajaxResponse, callbackParams = {}) {
+                if (ajaxResponse.hasErrorStatus()) {
+                    return false;
+                }
+
+                let response = ajaxResponse.getData()
+                let isFavorite = response.favorites.some(function(item) {
+                    return item == productId;
+                });
+
+                if (isFavorite === false) {
+                    callbackParams.starButton.parent().parent().html('');
+                }
+
+                $('.favorite.simple-icon span').html(response.favoritesCount);
+            },
+            callbackParams: {
+                starButton: changeButton,
+            }
+        });
+
+    })
+
+
+
+
+
+
+
+
+
     
     // /*----------- 00. Right Click Disable ----------*/
     //   window.addEventListener('contextmenu', function (e) {

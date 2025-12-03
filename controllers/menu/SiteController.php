@@ -12,13 +12,11 @@ use app\models\News;
 use app\models\NewsSearch;
 use app\models\Product;
 use app\models\ProductSearch;
-use app\models\Wishlist;
 use PHPUnit\Exception;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
-use yii\web\Cookie;
 use yii\web\Response;
 
 class SiteController extends Controller
@@ -109,9 +107,12 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionWishlist()
+    public function actionWishlist(): string
     {
-        return $this->render('wishlist');
+        $favorites = Favorite::getFavorites();
+        $products = Product::find()->where(['id' => $favorites])->all();
+
+        return $this->render('wishlist', ['products' => $products]);
     }
 
     /**

@@ -1,7 +1,14 @@
 <?php
 
+use app\models\Product;
+
 $this->title = 'Избранные товары';
 $this->params['breadcrumbs'][] = $this->title;
+
+/**
+ * @var Product[] $products
+ */
+
 ?>
 <!--==============================
 Checkout Area
@@ -16,9 +23,6 @@ Checkout Area
                 <table class="tinvwl-table-manage-list">
                     <thead>
                     <tr>
-                        <th class="product-cb">
-                            <input type="checkbox" class="global-cb" title="Select all for bulk action">
-                        </th>
                         <th class="product-remove"></th>
                         <th class="product-thumbnail">&nbsp;</th>
                         <th class="product-name">
@@ -30,38 +34,56 @@ Checkout Area
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="wishlist_item">
-                        <td class="product-cb">
-                            <input type="checkbox" name="wishlist_pr[]" value="58" title="Select for bulk action">
-                        </td>
-                        <td class="product-remove">
-                            <button type="submit" name="tinvwl-remove" value="58" title="Remove"><i
-                                        class="fal fa-times"></i>
-                            </button>
-                        </td>
-                        <td class="product-thumbnail">
-                            <a href="shop-details.php"><img src="assets/img/product/product_thumb_1_1.jpg"
-                                                            class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
-                                                            alt="image"></a>
-                        </td>
-                        <td class="product-name">
-                            <a href="shop-details.php">Bosco Apple Fruit</a>
-                        </td>
-                        <td class="product-price">
-                            <span class="woocommerce-Price-amount amount"><bdi><span
-                                            class="woocommerce-Price-currencySymbol">$</span>45.00</bdi></span>
-                        </td>
-                        <td class="product-stock">
-                            <p class="stock in-stock">
-                                <span><i class="fas fa-check"></i></span><span class="tinvwl-txt">In stock</span>
-                            </p>
-                        </td>
-                        <td class="product-action">
-                            <button class="button th-btn" name="tinvwl-add-to-cart" value="58" title="Add to Cart">
-                                <i class="fal fa-shopping-cart"></i><span class="tinvwl-txt">В корзину</span>
-                            </button>
-                        </td>
-                    </tr>
+                    <?php
+                    foreach ($products as $product): ?>
+                        <tr class="wishlist_item">
+                            <td class="product-remove">
+                                <button data-product="<?= $product->id; ?>" class="favorite-remove--js" type="submit" name="tinvwl-remove" value="58" title="Remove"><i
+                                            class="fal fa-times"></i>
+                                </button>
+                            </td>
+                            <td class="product-thumbnail">
+                                <a href="shop-details.php"><img src="<?= $product->image; ?>"
+                                                                class="attachment-woocommerce_thumbnail size-woocommerce_thumbnail"
+                                                                alt="image"></a>
+                            </td>
+                            <td class="product-name">
+                                <a href="shop-details.php"><?= $product->title; ?></a>
+                            </td>
+                            <td class="product-price">
+                            <span class="woocommerce-Price-amount amount"><bdi><?= $product->price; ?><span
+                                            class="woocommerce-Price-currencySymbol">₽</span></bdi></span>
+                            </td>
+                            <td class="product-stock">
+                                <?php
+                                if ($product->count > 0): ?>
+                                    <span class="stock in-stock">
+                                    <i class="far fa-check-square me-2 ms-1"></i>В наличии
+                                </span>
+                                <?php
+                                else: ?>
+                                    <span class="stock in-stock">
+                                    <i class="far fa-square me-2 ms-1"></i>Нет в наличии
+                                </span>
+                                <?php
+                                endif; ?>
+                            </td>
+
+
+                            <td class="product-action">
+                                <?php
+                                if ($product->count > 0): ?>
+                                    <button class="button th-btn" name="tinvwl-add-to-cart" value="58"
+                                            title="Add to Cart">
+                                        <i class="fal fa-shopping-cart"></i><span class="tinvwl-txt">В корзину</span>
+                                    </button>
+                                <?php
+                                endif; ?>
+                            </td>
+
+                        </tr>
+                    <?php
+                    endforeach; ?>
                     </tbody>
                 </table>
             </form>
