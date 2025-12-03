@@ -360,7 +360,7 @@ $this->beginBody() ?>
             </div>
         </div>
     </div>
-    <footer class="footer-wrapper footer-layout1" data-bg-src="<?= Yii::getAlias('@web'); ?>/img/bg/footer_bg_1.jpg">
+    <footer class="footer-wrapper footer-layout1">
         <div class="widget-area">
             <div class="container">
                 <div class="row justify-content-between">
