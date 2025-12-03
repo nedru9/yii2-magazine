@@ -66,20 +66,6 @@ $this->beginPage() ?>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100;9..40,200;9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Lexend:wght@300;400;500;600;700;800;900&family=Lobster&display=swap"
           rel="stylesheet">
-
-    <!--==============================
-	    All CSS File
-	============================== -->
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="<?= Yii::getAlias('@web') ?>/css/bootstrap.min.css">
-    <!-- Fontawesome Icon -->
-    <link rel="stylesheet" href="<?= Yii::getAlias('@web') ?>/css/fontawesome.min.css">
-    <!-- Magnific Popup -->
-    <link rel="stylesheet" href="<?= Yii::getAlias('@web') ?>/css/magnific-popup.min.css">
-    <!-- Swiper Js -->
-    <link rel="stylesheet" href="<?= Yii::getAlias('@web') ?>/css/swiper-bundle.min.css">
-    <!-- Theme Custom CSS -->
-    <link rel="stylesheet" href="<?= Yii::getAlias('@web') ?>/css/style.css">
 </head>
 <body class="d-flex flex-column h-100">
 <?php
@@ -419,29 +405,6 @@ $this->beginBody() ?>
 
 <?php
 $this->endBody() ?>
-
-
-<!--==============================
-All Js File
-============================== -->
-<!-- Jquery -->
-<script src="<?= Yii::getAlias('@web') ?>/js/vendor/jquery-3.6.0.min.js"></script>
-<!-- Swiper Js -->
-<script src="<?= Yii::getAlias('@web') ?>/js/swiper-bundle.min.js"></script>
-<!-- Bootstrap -->
-<script src="<?= Yii::getAlias('@web') ?>/js/bootstrap.min.js"></script>
-<!-- Magnific Popup -->
-<script src="<?= Yii::getAlias('@web') ?>/js/jquery.magnific-popup.min.js"></script>
-<!-- Counter Up -->
-<script src="<?= Yii::getAlias('@web') ?>/js/jquery.counterup.min.js"></script>
-<!-- Range Slider -->
-<script src="<?= Yii::getAlias('@web') ?>/js/jquery-ui.min.js"></script>
-<!-- Isotope Filter -->
-<script src="<?= Yii::getAlias('@web') ?>/js/imagesloaded.pkgd.min.js"></script>
-<script src="<?= Yii::getAlias('@web') ?>/js/isotope.pkgd.min.js"></script>
-
-<!-- Main Js File -->
-<script src="<?= Yii::getAlias('@web') ?>/js/main.js"></script>
 </body>
 </html>
 <?php

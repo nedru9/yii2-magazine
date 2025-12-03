@@ -23,6 +23,11 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/site.css',
+        'css/bootstrap.min.css',
+        'css/fontawesome.min.css',
+        'css/magnific-popup.min.css',
+        'css/swiper-bundle.min.css',
+        'css/style.css',
     ];
     public $depends = [
         YiiAsset::class,
@@ -36,5 +41,14 @@ class AppAsset extends AssetBundle
         'js/classes/AnimatedButton.js',
         'js/classes/AjaxSender.js',
         'js/classes/Helper.js',
+        'js/vendor/jquery-3.6.0.min.js',
+        'js/swiper-bundle.min.js',
+        'js/bootstrap.min.js',
+        'js/jquery.magnific-popup.min.js',
+        'js/jquery.counterup.min.js',
+        'js/jquery-ui.min.js',
+        'js/imagesloaded.pkgd.min.js',
+        'js/isotope.pkgd.min.js',
+        'js/main.js',
     ];
 }

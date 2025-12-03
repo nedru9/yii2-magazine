@@ -63,11 +63,11 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays homepage.
+     * Отображение главной страницы
      *
      * @return string
      */
-    public function actionIndex()
+    public function actionIndex(): string
     {
         $categories = Category::find()->all();
         $news = News::find()->all();
@@ -83,27 +83,27 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays homepage.
+     * Отображение страницы ЧЗВ
      *
      * @return string
      */
-    public function actionFaq()
+    public function actionFaq(): string
     {
         return $this->render('faq');
     }
 
     /**
-     * Displays homepage.
+     * Отображение страницы оформления заказа
      *
      * @return string
      */
-    public function actionCheckout()
+    public function actionCheckout(): string
     {
         return $this->render('checkout');
     }
 
     /**
-     * Displays homepage.
+     * Отображение страницы избранного
      *
      * @return string
      */
@@ -116,31 +116,31 @@ class SiteController extends Controller
     }
 
     /**
-     * Displays homepage.
+     * Отображение страницы с корзиной
      *
      * @return string
      */
-    public function actionCart()
+    public function actionCart(): string
     {
         return $this->render('cart');
     }
 
     /**
-     * Displays homepage.
+     * Отображение страницы контактов
      *
      * @return string
      */
-    public function actionContact()
+    public function actionContact(): string
     {
         return $this->render('contact');
     }
 
     /**
-     * Displays homepage.
+     * Отображение страницы блога
      *
      * @return string
      */
-    public function actionBlog()
+    public function actionBlog(): string
     {
         $searchModel = new NewsSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -257,7 +257,7 @@ class SiteController extends Controller
      *
      * @return Response|string
      */
-    public function actionLogin()
+    public function actionLogin(): Response|string
     {
         if (!Yii::$app->user->isGuest) {
             return $this->goHome();
@@ -279,7 +279,7 @@ class SiteController extends Controller
      *
      * @return Response
      */
-    public function actionLogout()
+    public function actionLogout(): Response
     {
         Yii::$app->user->logout();
 
