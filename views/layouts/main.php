@@ -279,7 +279,7 @@ $this->beginBody() ?>
 <main id="main" class="flex-shrink-0" role="main">
     <?php
     if (!empty($this->params['breadcrumbs'])): ?>
-        <div class="breadcrumb-wrapper magazine" data-bg-src="<?= Yii::getAlias('@web') ?>/img/bg/breadcumb-bg.jpg">
+        <div class="breadcrumb-wrapper magazine">
             <div class="container">
                 <div class="breadcrumb-content">
                     <?= Breadcrumbs::widget(['links' => $this->params['breadcrumbs']]) ?>

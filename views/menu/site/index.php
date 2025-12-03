@@ -39,7 +39,7 @@ Hero Area
                         </div>
                     </div>
                     <div class="hero-img" data-ani="slideinright" data-ani-delay="0.5s">
-                        <img src="<?= Yii::getAlias('@web') ?>/img/hero/hero_1_1.png" alt="Image">
+                        <img src="<?= Yii::getAlias('@web') ?>/img/hero/hero_shape_1_1.png" alt="Image">
                     </div>
                     <div class="hero-shape1" data-ani="slideinup" data-ani-delay="0.5s">
                         <img src="<?= Yii::getAlias('@web') ?>/img/hero/hero_shape_1_1.png" alt="shape">
@@ -72,7 +72,7 @@ Hero Area
                         </div>
                     </div>
                     <div class="hero-img" data-ani="slideinright" data-ani-delay="0.5s">
-                        <img src="<?= Yii::getAlias('@web') ?>/img/hero/hero_1_2.png" alt="Image">
+                        <img src="<?= Yii::getAlias('@web') ?>/img/hero/hero_shape_1_1.png" alt="Image">
                     </div>
                     <div class="hero-shape1" data-ani="slideinup" data-ani-delay="0.5s">
                         <img src="<?= Yii::getAlias('@web') ?>/img/hero/hero_shape_1_1.png" alt="shape">
@@ -106,7 +106,7 @@ Hero Area
                         </div>
                     </div>
                     <div class="hero-img" data-ani="slideinright" data-ani-delay="0.5s">
-                        <img src="<?= Yii::getAlias('@web') ?>/img/hero/hero_1_3.png" alt="Image">
+                        <img src="<?= Yii::getAlias('@web') ?>/img/hero/hero_shape_1_1.png" alt="Image">
                     </div>
                     <div class="hero-shape1" data-ani="slideinup" data-ani-delay="0.5s">
                         <img src="<?= Yii::getAlias('@web') ?>/img/hero/hero_shape_1_1.png" alt="shape">
@@ -177,13 +177,16 @@ About Area
             <div class="col-xl-6 mb-30 mb-xl-0">
                 <div class="img-box1">
                     <div class="img1">
-                        <img src="<?= Yii::getAlias('@web') ?>/img/normal/about_1_1.jpg" alt="About">
+                        <img src="<?= Yii::getAlias('@web') ?>/img/normal/cucumber.png" alt="About">
                     </div>
                     <div class="img2">
-                        <img src="<?= Yii::getAlias('@web') ?>/img/normal/about_1_2.jpg" alt="Image">
+                        <img src="<?= Yii::getAlias(
+                            '@web'
+                        ) ?>/img/normal/pngtree-various-fruits-floating-in-air-orange-banana-apple-transparent-png-image_14184835.png"
+                             alt="Image">
                     </div>
                     <div class="shape1 movingX">
-                        <img src="<?= Yii::getAlias('@web') ?>/img/normal/about_1_3.png" alt="Image">
+                        <img src="<?= Yii::getAlias('@web') ?>/img/normal/tomato.png" alt="Image">
                     </div>
                     <div class="year-counter">
                         <div class="year-counter_number"><span class="counter-number">23</span>+</div>
@@ -218,7 +221,8 @@ About Area
                         </div>
                     </div>
                     <div>
-                        <a href="about.php" class="th-btn">Узнайте больше<i class="fas fa-chevrons-right ms-2"></i></a>
+                        <a href="/site/about" class="th-btn">Узнайте больше<i
+                                    class="fas fa-chevrons-right ms-2"></i></a>
                     </div>
                 </div>
             </div>
@@ -231,9 +235,15 @@ Product Area
 ==============================-->
 <section class="bg-smoke2 space" id="shop-sec">
     <div class="shape-mockup" data-top="0" data-left="0"><img
-                src="<?= Yii::getAlias('@web') ?>/img/shape/vector_shape_1.png" alt="shape"></div>
+                src="<?= Yii::getAlias(
+                    '@web'
+                ) ?>/img/normal/pngtree-various-fruits-floating-in-air-orange-banana-apple-transparent-png-image_14184835.png"
+                alt="shape"></div>
     <div class="shape-mockup" data-bottom="0" data-right="0"><img
-                src="<?= Yii::getAlias('@web') ?>/img/shape/vector_shape_2.png" alt="shape"></div>
+                src="<?= Yii::getAlias(
+                    '@web'
+                ) ?>/img/normal/pngtree-various-fruits-floating-in-air-orange-banana-apple-transparent-png-image_14184835.png"
+                alt="shape"></div>
     <div class="container text-center">
         <div class="title-area text-center">
             <span class="sub-title"><img src="<?= Yii::getAlias('@web') ?>/img/theme-img/title_icon.svg" alt="Icon">Органические продукты</span>
@@ -344,7 +354,10 @@ Feature Area
                         <div class="img-box2-wrap">
                             <div class="img-box2">
                                 <div class="img1">
-                                    <img src="<?= Yii::getAlias('@web') ?>/img/normal/why_1_1.png" alt="Why">
+                                    <img src="<?= Yii::getAlias(
+                                        '@web'
+                                    ) ?>/img/normal/pngtree-various-fruits-floating-in-air-orange-banana-apple-transparent-png-image_14184835.png"
+                                         alt="Why">
                                 </div>
                                 <div class="img2">
                                     <img src="<?= Yii::getAlias('@web') ?>/img/normal/why_1_2.png" alt="Why">
@@ -412,7 +425,10 @@ Testimonial Area
 ==============================-->
 <section class="overflow-hidden bg-smoke2" id="testi-sec">
     <div class="shape-mockup testi-shape1" data-top="0" data-left="0"><img
-                src="<?= Yii::getAlias('@web') ?>/img/normal/testi_shape.png" alt="shape"></div>
+                src="<?= Yii::getAlias(
+                    '@web'
+                ) ?>/img/normal/pngtree-various-fruits-floating-in-air-orange-banana-apple-transparent-png-image_14184835.png"
+                alt="shape"></div>
     <div class="shape-mockup" data-bottom="0" data-right="0"><img
                 src="<?= Yii::getAlias('@web') ?>/img/shape/vector_shape_5.png" alt="shape"></div>
     <div class="container">
@@ -434,7 +450,7 @@ Testimonial Area
                                     Органические продукты часто обладают более насыщенным вкусом.”</p>
                                 <div class="testi-card_profile">
                                     <div class="testi-card_avater">
-                                        <img src="<?= Yii::getAlias('@web') ?>/img/testimonial/testi_1_1.jpg"
+                                        <img src="<?= Yii::getAlias('@web') ?>/img/testimonial/f_2246859924e579b3.jpeg"
                                              alt="Avater">
                                     </div>
                                     <div class="testi-card_content">
@@ -455,7 +471,9 @@ Testimonial Area
                                     Органические продукты помогают поддерживать себя в форме.”</p>
                                 <div class="testi-card_profile">
                                     <div class="testi-card_avater">
-                                        <img src="<?= Yii::getAlias('@web') ?>/img/testimonial/testi_1_2.jpg"
+                                        <img src="<?= Yii::getAlias(
+                                            '@web'
+                                        ) ?>/img/testimonial/dc09f85f24c7ad8a7f0b69571ad44eb7.jpg"
                                              alt="Avater">
                                     </div>
                                     <div class="testi-card_content">

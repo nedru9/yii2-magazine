@@ -12,13 +12,16 @@ About Area
             <div class="col-xl-6 mb-30 mb-xl-0">
                 <div class="img-box1">
                     <div class="img1">
-                        <img src="<?= Yii::getAlias('@web') ?>/img/normal/about_1_1.jpg" alt="About">
+                        <img src="<?= Yii::getAlias('@web') ?>/img/normal/cucumber.png" alt="About">
                     </div>
                     <div class="img2">
-                        <img src="<?= Yii::getAlias('@web') ?>/img/normal/about_1_2.jpg" alt="Image">
+                        <img src="<?= Yii::getAlias(
+                            '@web'
+                        ) ?>/img/normal/pngtree-various-fruits-floating-in-air-orange-banana-apple-transparent-png-image_14184835.png"
+                             alt="Image">
                     </div>
                     <div class="shape1 movingX">
-                        <img src="<?= Yii::getAlias('@web') ?>/img/normal/about_1_3.png" alt="Image">
+                        <img src="<?= Yii::getAlias('@web') ?>/img/normal/tomato.png" alt="Image">
                     </div>
                     <div class="year-counter">
                         <div class="year-counter_number"><span class="counter-number">23</span>+</div>
@@ -29,11 +32,15 @@ About Area
             <div class="col-xl-6">
                 <div class="ps-xxl-5 ps-xl-2 ms-xl-1 text-center text-xl-start">
                     <div class="title-area mb-32">
-                        <span class="sub-title"><img src="<?= Yii::getAlias('@web') ?>/img/theme-img/title_icon.svg" alt="shape">О нашей компании</span>
+                        <span class="sub-title"><img src="<?= Yii::getAlias('@web') ?>/img/theme-img/title_icon.svg"
+                                                     alt="shape">О нашей компании</span>
                         <h2 class="sec-title">Правильное питание Начните с Органических Продуктов</h2>
-                        <p class="sec-text">Органические продукты производятся с помощью фермерской системы, которая позволяет избежать использования
-                            синтетических пестицидов, гербицидов, генетически модифицированных организмов (ГМО) и искусственных
-                            удобрений. Вместо этого фермеры-органики полагаются на естественные методы, такие как севооборот.
+                        <p class="sec-text">Органические продукты производятся с помощью фермерской системы, которая
+                            позволяет избежать использования
+                            синтетических пестицидов, гербицидов, генетически модифицированных организмов (ГМО) и
+                            искусственных
+                            удобрений. Вместо этого фермеры-органики полагаются на естественные методы, такие как
+                            севооборот.
                             компостирование и биологическая борьба с вредителями.</p>
                     </div>
                     <div class="about-feature-wrap">
@@ -62,9 +69,11 @@ About Area
 Process Area  
 ==============================-->
 <section class="space bg-smoke2" id="process-sec">
-    <div class="shape-mockup" data-top="0" data-left="0"><img src="<?= Yii::getAlias('@web') ?>/img/shape/vector_shape_7.png" alt="shape">
+    <div class="shape-mockup" data-top="0" data-left="0"><img
+                src="<?= Yii::getAlias('@web') ?>/img/shape/vector_shape_7.png" alt="shape">
     </div>
-    <div class="shape-mockup" data-bottom="0" data-right="0"><img src="<?= Yii::getAlias('@web') ?>/img/shape/vector_shape_6.png" alt="shape">
+    <div class="shape-mockup" data-bottom="0" data-right="0"><img
+                src="<?= Yii::getAlias('@web') ?>/img/shape/vector_shape_6.png" alt="shape">
     </div>
     <div class="container">
         <div class="title-area text-center">
@@ -190,8 +199,10 @@ Feature Area
                     <span class="sub-title"><img src="<?= Yii::getAlias('@web') ?>/img/theme-img/title_icon.svg"
                                                  alt="shape">Почему Вы выбрали именно Нас</span>
                     <h2 class="sec-title">Питайте свое тело чистой органической пищей!</h2>
-                    <p class="sec-text">Правительства устанавливают правила, гарантирующие соответствие продукции, обозначенной как органическая
-                        , определенным стандартам. Для поддержания целостности органической этикетки проводятся регулярные проверки и аудиты
+                    <p class="sec-text">Правительства устанавливают правила, гарантирующие соответствие продукции,
+                        обозначенной как органическая
+                        , определенным стандартам. Для поддержания целостности органической этикетки проводятся
+                        регулярные проверки и аудиты
                         .</p>
                 </div>
             </div>
@@ -235,7 +246,10 @@ Feature Area
                         <div class="img-box2-wrap">
                             <div class="img-box2">
                                 <div class="img1">
-                                    <img src="<?= Yii::getAlias('@web') ?>/img/normal/why_1_1.png" alt="Why">
+                                    <img src="<?= Yii::getAlias(
+                                        '@web'
+                                    ) ?>/img/normal/pngtree-various-fruits-floating-in-air-orange-banana-apple-transparent-png-image_14184835.png"
+                                         alt="Why">
                                 </div>
                                 <div class="img2">
                                     <img src="<?= Yii::getAlias('@web') ?>/img/normal/why_1_2.png" alt="Why">
@@ -252,9 +266,11 @@ Feature Area
 Testimonial Area  
 ==============================-->
 <section class="overflow-hidden bg-smoke2" id="testi-sec">
-    <div class="shape-mockup testi-shape1" data-top="0" data-left="0"><img src="<?= Yii::getAlias('@web') ?>/img/normal/testi_shape.png"
-                                                                           alt="shape"></div>
-    <div class="shape-mockup" data-bottom="0" data-right="0"><img src="<?= Yii::getAlias('@web') ?>/img/shape/vector_shape_5.png" alt="shape">
+    <div class="shape-mockup testi-shape1" data-top="0" data-left="0"><img
+                src="<?= Yii::getAlias('@web') ?>/img/normal/pngtree-various-fruits-floating-in-air-orange-banana-apple-transparent-png-image_14184835.png"
+                alt="shape"></div>
+    <div class="shape-mockup" data-bottom="0" data-right="0"><img
+                src="<?= Yii::getAlias('@web') ?>/img/shape/vector_shape_5.png" alt="shape">
     </div>
     <div class="container">
         <div class="testi-card-area">
@@ -267,13 +283,16 @@ Testimonial Area
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <div class="testi-card">
-                                <p class="testi-card_text">“Наши методы ведения органического сельского хозяйства работают в гармонии с природой.
+                                <p class="testi-card_text">“Наши методы ведения органического сельского хозяйства
+                                    работают в гармонии с природой.
                                     Избегая синтетических химикатов, мы помогаем защитить полезных насекомых, птиц и
-                                    других представителей дикой природы, которые жизненно важны для сбалансированной экосистемы.
+                                    других представителей дикой природы, которые жизненно важны для сбалансированной
+                                    экосистемы.
                                     Органические продукты часто обладают более насыщенным вкусом.”</p>
                                 <div class="testi-card_profile">
                                     <div class="testi-card_avater">
-                                        <img src="<?= Yii::getAlias('@web') ?>/img/testimonial/testi_1_1.jpg" alt="Avater">
+                                        <img src="<?= Yii::getAlias('@web') ?>/img/testimonial/f_2246859924e579b3.jpeg"
+                                             alt="Avater">
                                     </div>
                                     <div class="testi-card_content">
                                         <h3 class="testi-card_name">Анджелина Маргрет</h3>
@@ -284,13 +303,17 @@ Testimonial Area
                         </div>
                         <div class="swiper-slide">
                             <div class="testi-card">
-                                <p class="testi-card_text">“Методы выращивания свежих продуктов работают в гармонии с природой.
-                                    Избегая синтетических химикатов, мы помогаем защитить полезных насекомых, птиц и других
-                                    представителей дикой природы, которые жизненно важны для сбалансированной экосистемы.
+                                <p class="testi-card_text">“Методы выращивания свежих продуктов работают в гармонии с
+                                    природой.
+                                    Избегая синтетических химикатов, мы помогаем защитить полезных насекомых, птиц и
+                                    других
+                                    представителей дикой природы, которые жизненно важны для сбалансированной
+                                    экосистемы.
                                     Органические продукты помогают поддерживать себя в форме.”</p>
                                 <div class="testi-card_profile">
                                     <div class="testi-card_avater">
-                                        <img src="<?= Yii::getAlias('@web') ?>/img/testimonial/testi_1_2.jpg" alt="Avater">
+                                        <img src="<?= Yii::getAlias('@web') ?>/img/testimonial/dc09f85f24c7ad8a7f0b69571ad44eb7.jpg"
+                                             alt="Avater">
                                     </div>
                                     <div class="testi-card_content">
                                         <h3 class="testi-card_name">Алексан Микелито</h3>
@@ -308,81 +331,6 @@ Testimonial Area
                                 class="far fa-arrow-right"></i></button>
                 </div>
             </div>
-        </div>
-    </div>
-</section>
-<!--==============================
-Team Area  
-==============================-->
-<section class="space">
-    <div class="container z-index-common">
-        <div class="row justify-content-center">
-            <div class="col-xl-6 col-lg-7 col-md-8">
-                <div class="title-area text-center">
-                    <span class="sub-title"><img src="<?= Yii::getAlias('@web') ?>/img/theme-img/title_icon.svg"
-                                                 alt="Icon">Члены команды</span>
-                    <h2 class="sec-title">У Нас здесь потрясающая Команда, которая поможет Вам!</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row gy-40 justify-content-center">
-            <!-- Single Item -->
-            <div class="col-xl-4 col-md-6">
-                <div class="th-team team-card">
-                    <div class="img-wrap">
-                        <div class="shape" data-mask-src="<?= Yii::getAlias('@web') ?>/img/bg/team_card_bg.png"></div>
-                        <div class="team-img">
-                            <img src="<?= Yii::getAlias('@web') ?>/img/team/team_1_1.jpg" alt="Team">
-                        </div>
-                    </div>
-                    <div class="box-content">
-                        <span class="team-desig">Старшие фермеры</span>
-                        <h3 class="box-title"><a href="team-details.php">Алхандо Роберт</a></h3>
-                        <div class="social-links">
-                            <a target="_blank" href="https://facebook.com/"><i class="fab fa-telegram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Item -->
-            <div class="col-xl-4 col-md-6">
-                <div class="th-team team-card">
-                    <div class="img-wrap">
-                        <div class="shape" data-mask-src="assets/img/bg/team_card_bg.png"></div>
-                        <div class="team-img">
-                            <img src="<?= Yii::getAlias('@web') ?>/img/team/team_1_2.jpg" alt="Team">
-                        </div>
-                    </div>
-                    <div class="box-content">
-                        <span class="team-desig">Молодые фермеры</span>
-                        <h3 class="box-title"><a href="team-details.php">Элиана Беллингем</a></h3>
-                        <div class="social-links">
-                            <a target="_blank" href="https://facebook.com/"><i class="fab fa-telegram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Single Item -->
-            <div class="col-xl-4 col-md-6">
-                <div class="th-team team-card">
-                    <div class="img-wrap">
-                        <div class="shape" data-mask-src="assets/img/bg/team_card_bg.png"></div>
-                        <div class="team-img">
-                            <img src="<?= Yii::getAlias('@web') ?>/img/team/team_1_3.jpg" alt="Team">
-                        </div>
-                    </div>
-                    <div class="box-content">
-                        <span class="team-desig">Старшие фермеры</span>
-                        <h3 class="box-title"><a href="team-details.php">Эмануэль Макуле</a></h3>
-                        <div class="social-links">
-                            <a target="_blank" href="https://facebook.com/"><i class="fab fa-telegram"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
 </section>
