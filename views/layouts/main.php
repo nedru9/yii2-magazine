@@ -188,57 +188,18 @@ $this->beginBody() ?>
     <div class="th-menu-area text-center">
         <button class="th-menu-toggle"><i class="fal fa-times"></i></button>
         <div class="mobile-logo">
-            <a href="home-organic-farm.php"><img src="<?= Yii::getAlias('@web') ?>/img/logo.svg" alt="Frutin"></a>
+            <a href="/"><img src="<?= Yii::getAlias('@web') ?>/img/logo.svg" alt="Frutin"></a>
         </div>
         <div class="th-mobile-menu">
             <ul>
-                <li class="menu-item-has-children">
-                    <a href="/">Главная</a>
-                    <ul class="sub-menu">
-                        <li><a href="home-organic-farm.php">Organic Farm</a></li>
-                        <li><a href="home-organic-food.php">Organic Food</a></li>
-                        <li><a href="home-mega-shop.php">Mega Shop</a></li>
-                    </ul>
-                </li>
-                <li><a href="about.php">About Us</a></li>
-                <li class="menu-item-has-children">
-                    <a href="#">Service</a>
-                    <ul class="sub-menu">
-                        <li><a href="service.php">Service</a></li>
-                        <li><a href="service-details.php">Service Details</a></li>
-                    </ul>
-                </li>
-                <li class="menu-item-has-children">
-                    <a href="#">Pages</a>
-                    <ul class="sub-menu">
-                        <li class="menu-item-has-children">
-                            <a href="#">Shop</a>
-                            <ul class="sub-menu">
-                                <li><a href="shop.php">Shop</a></li>
-                                <li><a href="shop-details.php">Shop Details</a></li>
-                                <li><a href="cart.php">Cart Page</a></li>
-                                <li><a href="checkout.php">Checkout</a></li>
-                                <li><a href="wishlist.php">Wishlist</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="team.php">Team</a></li>
-                        <li><a href="team-details.php">Team Details</a></li>
-                        <li><a href="project.php">Project Gallery</a></li>
-                        <li><a href="project-details.php">Project Details</a></li>
-                        <li><a href="faq.php">Faq Page</a></li>
-                        <li><a href="error.html">Error Page</a></li>
-                    </ul>
-                </li>
-                <li class="menu-item-has-children">
-                    <a href="#">Blog</a>
-                    <ul class="sub-menu">
-                        <li><a href="blog.php">Blog</a></li>
-                        <li><a href="blog-details.php">Blog Details</a></li>
-                    </ul>
-                </li>
                 <li>
-                    <a href="contact.php">Contact</a>
+                    <a href="/">Главная</a>
                 </li>
+                <li><a href="/site/shop">Товары</a></li>
+                <li><a href="/site/about">О нас</a></li>
+                <li><a href="/site/faq">Помощь</a></li>
+                <li><a href="/site/blog">Блог</a></li>
+                <li><a href="/site/contact">Контакты</a></li>
             </ul>
         </div>
     </div>
@@ -386,11 +347,11 @@ $this->beginBody() ?>
                             </h3>
                             <div class="menu-all-pages-container">
                                 <ul class="menu">
-                                    <li><a href="about.php">О нас</a></li>
-                                    <li><a href="project.php">Товары</a></li>
-                                    <li><a href="faq.php">Помощь</a></li>
-                                    <li><a href="blog.php">Блог</a></li>
-                                    <li><a href="contact.php">Контакты</a></li>
+                                    <li><a href="/site/about">О нас</a></li>
+                                    <li><a href="/site/shop">Товары</a></li>
+                                    <li><a href="/site/faq">Помощь</a></li>
+                                    <li><a href="/site/blog">Блог</a></li>
+                                    <li><a href="/site/contact">Контакты</a></li>
                                 </ul>
                             </div>
                         </div>
