@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Exception;
 use Yii;
 use yii\base\Model;
 
@@ -13,69 +14,111 @@ use yii\base\Model;
  */
 class LoginForm extends Model
 {
-    public $username;
-    public $password;
-    public $rememberMe = true;
+    public string $email = '';
+    public string $password = '';
+    public bool $rememberMe = false;
 
-    private $_user = false;
+    private ?User $user;
 
 
     /**
-     * @return array the validation rules.
+     * {@inheritdoc}
      */
-    public function rules()
+    public function attributeLabels(): array
     {
         return [
-            // username and password are both required
-            [['username', 'password'], 'required'],
-            // rememberMe must be a boolean value
+            'email' => 'Email',
+            'password' => 'Пароль',
+            'rememberMe' => 'Запомнить меня',
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function rules(): array
+    {
+        return [
+            [['email', 'password'], 'required'],
             ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
+            ['email', 'validateUserExist'],
             ['password', 'validatePassword'],
         ];
     }
 
     /**
-     * Validates the password.
-     * This method serves as the inline validation for password.
+     * Проверка пароля
      *
-     * @param string $attribute the attribute currently being validated
-     * @param array $params the additional name-value pairs given in the rule
+     * @return void
+     *
+     * @throws Exception
      */
-    public function validatePassword($attribute, $params)
+    public function validatePassword(): void
     {
         if (!$this->hasErrors()) {
-            $user = $this->getUser();
-
-            if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+            if ($this->user->validatePassword($this->password) === false) {
+                $this->addError('email', 'Неверные почта или пароль');
+                $this->addError('password', 'Неверные почта или пароль');
             }
         }
     }
 
     /**
-     * Logs in a user using the provided username and password.
-     * @return bool whether the user is logged in successfully
+     * Проверка существования пользователя
+     *
+     * @return void
      */
-    public function login()
+    public function validateUserExist(): void
     {
-        if ($this->validate()) {
-            return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600*24*30 : 0);
+        if ($this->user === null) {
+            $this->addError('error', "Пользователь $this->email не найден");
         }
+    }
+
+    /**
+     * @return bool
+     *
+     * @throws Exception
+     */
+    public function login(): bool
+    {
+        $this->searchUser();
+
+        if ($this->validate()) {
+            return Yii::$app->user->login(
+                $this->user,
+                $this->getDuration()
+            );
+        }
+
         return false;
     }
 
     /**
-     * Finds user by [[username]]
-     *
-     * @return User|null
+     * @return self
      */
-    public function getUser()
+    public function searchUser(): self
     {
-        if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
-        }
+        $this->user = User::findByEmail($this->email);
 
-        return $this->_user;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    private function getDuration(): int
+    {
+        return $this->rememberMe ? self::rememberTime() : 0;
+    }
+
+    /**
+     * @param int $hourCount
+     *
+     * @return int
+     */
+    public static function rememberTime(int $hourCount = 1): int
+    {
+        return 60 * 60 * $hourCount;
     }
 }

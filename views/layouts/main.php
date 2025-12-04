@@ -261,6 +261,18 @@ $this->beginBody() ?>
                                 <span class="badge"><?= count(Favorite::getFavorites()); ?></span>
                                 <i class="fa-regular fa-heart"></i>
                             </a>
+                            <?php
+                            if (Yii::$app->user->isGuest === true): ?>
+                                <a class="favorite simple-icon" href="/user/login">
+                                    <i class="fa-regular fa-user"></i>
+                                </a>
+                            <?php
+                            else: ?>
+                                <a class="favorite simple-icon" href="/user/logout">
+                                    <i class="fa-regular fa-arrow-right-from-bracket"></i>
+                                </a>
+                            <?php
+                            endif; ?>
                             <button type="button" class="simple-icon sideMenuToggler">
                                 <span class="badge">5</span>
                                 <i class="fa-regular fa-cart-shopping"></i>

@@ -29,6 +29,10 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
+            'identityCookie' => ['name' => '_identity', 'httpOnly' => true],
+        ],
+        'session' => [
+            'class' => 'yii\web\Session',
         ],
         'errorHandler' => [
             'errorAction' => 'menu/site/error',
