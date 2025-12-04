@@ -253,7 +253,6 @@ class SiteController extends Controller
      */
     public function actionError(): string
     {
-
         return $this->render('error', [
             'errorHandler' => Yii::$app->errorHandler
         ]);
