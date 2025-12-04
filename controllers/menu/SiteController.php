@@ -19,6 +19,8 @@ use yii\web\Response;
 
 class SiteController extends Controller
 {
+    public const string LAYOUT_ERROR = 'error';
+
     /**
      * {@inheritdoc}
      */
@@ -27,9 +29,12 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
+                'except' => ['error'],
                 'rules' => [
                     [
+
                         'actions' => [
+                            'error',
                             'say',
                             'index',
                             'shop-detail',
@@ -42,7 +47,7 @@ class SiteController extends Controller
                             'cart',
                             'checkout',
                             'wishlist',
-                            'favorite-product'
+                            'favorite-product',
                         ],
                         'allow' => true,
                     ],
@@ -239,5 +244,18 @@ class SiteController extends Controller
     public function actionAbout(): Response|string
     {
         return $this->render('about');
+    }
+
+    /**
+     * Общая страница для ошибки
+     *
+     * @return string
+     */
+    public function actionError(): string
+    {
+
+        return $this->render('error', [
+            'errorHandler' => Yii::$app->errorHandler
+        ]);
     }
 }
