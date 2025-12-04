@@ -3,11 +3,8 @@
 namespace app\models;
 
 use app\exceptions\ExceptionFactory;
-use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-
-use function PHPUnit\Framework\throwException;
 
 /**
  * This is the model class for table "product".
@@ -22,12 +19,14 @@ use function PHPUnit\Framework\throwException;
  * @property int $count Количество
  *
  * @property Category $category Категория
- * @property Wishlist $favorite Избранное
  */
 class Product extends ActiveRecord
 {
+    use UploadImageTrait;
+
     public $imageFile;
 
+    public const string DIR_IMAGE = 'products';
 
     /**
      * {@inheritdoc}
@@ -62,13 +61,14 @@ class Product extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'categoryId' => 'Id категории',
+            'categoryId' => 'Категория',
             'title' => 'Название',
             'price' => 'Цена',
             'description' => 'Описание',
             'image' => 'Изображение',
             'status' => 'Статус',
             'count' => 'Количество',
+            'imageFile' => 'Изображение',
         ];
     }
 
@@ -83,51 +83,6 @@ class Product extends ActiveRecord
     {
         return $this->hasOne(Category::class, ['id' => 'categoryId']);
     }
-
-    /**
-     * Получение избранного
-     *
-     * @return ActiveQuery
-     *
-     * @see favorite
-     */
-    public function getFavorite(): ActiveQuery
-    {
-        return $this->hasOne(Wishlist::class, ['productId' => 'id']);
-    }
-
-    /**
-     * Сохранение изображения товара
-     *
-     * @return bool
-     */
-    public function uploadImage(): bool
-    {
-        if (empty($this->imageFile)) {
-            return false;
-        }
-
-        $fileName = uniqid() . '.' . $this->imageFile->extension;
-        $uploadPath = Yii::getAlias('@upload');
-        $filePath = $uploadPath . DIRECTORY_SEPARATOR . $fileName;
-
-        if ($this->imageFile->saveAs($filePath)) {
-            if (!empty($this->image)) {
-                $oldFile = $uploadPath . DIRECTORY_SEPARATOR . $this->image;
-
-                if (file_exists($oldFile)) {
-                    @unlink($oldFile);
-                }
-            }
-
-            $this->image = '/upload/' . $fileName;
-
-            return true;
-        }
-
-        return false;
-    }
-
 
     /**
      * Поиск товара по Id
@@ -146,5 +101,4 @@ class Product extends ActiveRecord
 
         return $product;
     }
-
 }

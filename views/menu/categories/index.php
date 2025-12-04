@@ -14,7 +14,7 @@ if ($end > $pages->totalCount) {
     $end = $pages->totalCount;
 }
 
-$this->title = 'Товары';
+$this->title = 'Категории';
 $this->params['breadcrumbs'][] = [
     'label' => $this->title
 ];
@@ -36,7 +36,7 @@ Product Area
         <div class="th-sort-bar">
             <div class="row justify-content-between align-items-center">
                 <div class="col-md">
-                    <a class="btn btn-primary" href="/products/create">Создать товар</a>
+                    <a class="btn btn-primary" href="/categories/create">Создать категорию</a>
                 </div>
             </div>
         </div>
@@ -44,25 +44,23 @@ Product Area
         if (!empty($dataProvider->models)): ?>
             <div class="row gy-40">
                 <?php
-                foreach ($dataProvider->models as $product): ?>
+                foreach ($dataProvider->models as $category): ?>
                     <div class="col-xl-3 col-lg-4 col-sm-6">
                         <div class="th-product product-grid">
                             <div class="product-img">
-                                <img src="<?= !empty($product->image) ? $product->image : Yii::getAlias(
+                                <img src="<?= !empty($category->image) ? $category->image : Yii::getAlias(
                                         '@web'
-                                    ) . '/img/no-photo.png'; ?>" alt="<?= $product->title; ?>">
+                                    ) . '/img/no-photo.png'; ?>" alt="<?= $category->title; ?>">
                                 <div class="actions">
-                                    <a href="/products/create?id=<?= $product->id; ?>" class="icon-btn"><i
+                                    <a href="/categories/create?id=<?= $category->id; ?>" class="icon-btn"><i
                                                 class="far fa-pen"></i></a>
-                                    <a href="/products/delete?id=<?= $product->id; ?>" class="icon-btn"><i
+                                    <a href="/categories/delete?id=<?= $category->id; ?>" class="icon-btn"><i
                                                 class="far fa-trash"></i></a>
                                 </div>
                             </div>
                             <div class="product-content">
-                                <p class="product-category"><?= !empty($product->category->title) ? $product->category->title : 'Отсутствует'; ?></p>
-                                <h3 class="product-title"><?= $product->title; ?>
+                                <h3 class="product-title"><?= $category->title; ?>
                                 </h3>
-                                <span class="price"><?= $product->price; ?>₽</span>
                             </div>
                         </div>
                     </div>
@@ -80,7 +78,7 @@ Product Area
 
         <?php
         else: ?>
-            Нет товаров
+            Нет категорий
         <?php
         endif; ?>
     </div>

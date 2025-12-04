@@ -7,22 +7,36 @@ use kartik\select2\Select2;
 use yii\bootstrap\Html;
 use yii\widgets\ActiveForm;
 
-$this->title = 'Создание товара';
+if ($product->id !== null) {
+    $this->title = 'Изменение товара';
+} else {
+    $this->title = 'Создание товара';
+}
+?>
 
-$form = ActiveForm::begin(
-    [
-        'id' => 'create-product-form',
-        'action' => ['/products/create'],
-        'options' => ['enctype' => 'multipart/form-data']
-    ]
-);
+<div class="container">
+    <h1><?= $this->title; ?></h1>
+    <?php
+    $form = ActiveForm::begin(
+        [
+            'id' => 'create-product-form',
+            'options' => ['enctype' => 'multipart/form-data']
+        ]
+    );
+    ?>
+    <?= $form->field($product, 'title')->textInput(); ?>
+    <?= $form->field($product, 'price')->textInput(['type' => 'number']); ?>
+    <?= $form->field($product, 'description')->textInput(); ?>
+    <?= $form->field($product, 'count')->textInput(['type' => 'number']); ?>
+    <?= $form->field($product, 'categoryId')->widget(Select2::class, [
+        'data' => Category::getList(),
+        'pluginOptions' => [
+            'allowClear' => true,
+        ],
+    ]); ?>
+    <?= $form->field($product, 'imageFile')->fileInput(); ?>
 
-echo $form->field($product, 'title')->textInput();
-echo $form->field($product, 'price')->textInput();
-echo $form->field($product, 'description')->textInput();
-echo $form->field($product, 'imageFile')->fileInput();
-echo $form->field($product, 'categoryId')->widget(Select2::class, [
-                    'data' => Category::getList(),
-                ])->label(false);
-echo Html::submitButton('Оформить');
-ActiveForm::end();
+    <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary']); ?>
+    <?php
+    ActiveForm::end(); ?>
+</div>

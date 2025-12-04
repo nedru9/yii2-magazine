@@ -41,7 +41,6 @@ class AppAsset extends AssetBundle
         'js/classes/AnimatedButton.js',
         'js/classes/AjaxSender.js',
         'js/classes/Helper.js',
-        'js/vendor/jquery-3.6.0.min.js',
         'js/swiper-bundle.min.js',
         'js/bootstrap.min.js',
         'js/jquery.magnific-popup.min.js',

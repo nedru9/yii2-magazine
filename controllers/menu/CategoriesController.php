@@ -4,8 +4,6 @@ namespace app\controllers\menu;
 
 use app\helpers\WebResponse;
 use app\models\Category;
-use app\models\Product;
-use app\models\ProductSearch;
 use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -16,7 +14,7 @@ use yii\web\Response;
 use yii\web\UploadedFile;
 
 
-class ProductsController extends Controller
+class CategoriesController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -44,7 +42,7 @@ class ProductsController extends Controller
      */
     public function actionIndex(): Response|string
     {
-        $query = Product::find()->orderBy(['id' => SORT_DESC]);
+        $query = Category::find()->orderBy(['id' => SORT_DESC]);
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
@@ -71,36 +69,36 @@ class ProductsController extends Controller
     public function actionCreate(): string|Response
     {
         try {
-            $product = Yii::$app->request->get('id') === null ? new Product() :
-                Product::findOne(Yii::$app->request->get('id'));
+            $category = Yii::$app->request->get('id') === null ? new Category() :
+                Category::findOne(Yii::$app->request->get('id'));
 
             if (Yii::$app->request->isPost) {
-                if (!$product->load(Yii::$app->request->post()) || !$product->save()) {
+                if (!$category->load(Yii::$app->request->post()) || !$category->save()) {
                     throw new Exception('Ошибка');
                 }
 
-                $product->imageFile = UploadedFile::getInstance($product, 'imageFile');
+                $category->imageFile = UploadedFile::getInstance($category, 'imageFile');
 
-                if ($product->imageFile) {
-                    $product->uploadImage();
-                    $product->save(false);
+                if ($category->imageFile) {
+                    $category->uploadImage();
+                    $category->save(false);
                 }
 
-                Yii::$app->session->setFlash('success', 'Товар успешно создан!');
+                Yii::$app->session->setFlash('success', 'Категория успешно создана!');
 
                 return $this->redirect(['index']);
             }
 
-            return $this->render('create', ['product' => $product]);
-        } catch (Exception $e) {
-            Yii::$app->session->setFlash('error', 'Ошибка: ' . $e->getMessage());
+            return $this->render('create', ['category' => $category]);
+        } catch (\Exception $e) {
+            WebResponse::setError('Ошибка: ' . $e->getMessage());
         }
 
         return $this->redirect(Yii::$app->request->referrer);
     }
 
     /**
-     * Удаление товара
+     * Удаление категории
      *
      * @return string|Response
      *
@@ -109,14 +107,12 @@ class ProductsController extends Controller
     public function actionDelete(): string|Response
     {
         try {
-            $product = Product::getProduct(Yii::$app->request->get('id'));
-            $product->delete();
+            $category = Category::getCategory(Yii::$app->request->get('id'));
+            $category->delete();
         } catch (Throwable $e) {
-            Yii::$app->session->setFlash('error', 'Ошибка: ' . $e->getMessage());
+            WebResponse::setError('Ошибка: ' . $e->getMessage());
         }
 
         return $this->redirect(Yii::$app->request->referrer);
     }
-
-
 }

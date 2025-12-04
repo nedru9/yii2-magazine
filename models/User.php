@@ -7,7 +7,7 @@ use app\models\rbac\AuthAssignment;
 use Exception;
 use Yii;
 use yii\db\ActiveRecord;
-use yii\rbac\Role;
+use yii\rbac\Permission;
 use yii\web\IdentityInterface;
 
 
@@ -20,8 +20,14 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    /**
+     * @var Permission[]
+     */
+    private array $userPermissions;
+
     public string $role = '';
     public array $permissions = [];
+
     public function rules(): array
     {
         return [
@@ -125,4 +131,27 @@ class User extends ActiveRecord implements IdentityInterface
         return true;
     }
 
+    /**
+     * @param string $permissionName
+     * @param array $params
+     * @param bool $allowCaching
+     *
+     * @return bool
+     */
+    public function can(string $permissionName, array $params = [], bool $allowCaching = true): bool
+    {
+        return isset($this->getUserPermissions()[$permissionName]);
+    }
+
+    /**
+     * @return Permission[]
+     */
+    public function getUserPermissions(): array
+    {
+        if (isset($this->userPermissions) === false) {
+            $this->userPermissions = Yii::$app->authManager->getPermissionsByUser($this->id);
+        }
+
+        return $this->userPermissions;
+    }
 }

@@ -10,8 +10,6 @@ use app\assets\AppAsset;
 use app\entities\Favorite;
 use app\widgets\Alert;
 use yii\bootstrap\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 
 AppAsset::register($this);
@@ -235,19 +233,36 @@ $this->beginBody() ?>
                                 <li>
                                     <a href="/">Главная</a>
                                 </li>
-                                <li>
-                                    <a href="/site/shop">Товары</a>
-                                </li>
-                                <li><a href="/site/about">О нас</a></li>
-                                <li>
-                                    <a href="/site/faq">Помощь</a>
-                                </li>
-                                <li>
-                                    <a href="/site/blog">Блог</a>
-                                </li>
-                                <li>
-                                    <a href="/site/contact">Контакты</a>
-                                </li>
+                                <?php
+                                if (!Yii::$app->user->can('manager')): ?>
+                                    <li>
+                                        <a href="/site/shop">Товары</a>
+                                    </li>
+                                    <li><a href="/site/about">О нас</a></li>
+                                    <li>
+                                        <a href="/site/faq">Помощь</a>
+                                    </li>
+                                    <li>
+                                        <a href="/site/blog">Блог</a>
+                                    </li>
+                                    <li>
+                                        <a href="/site/contact">Контакты</a>
+                                    </li>
+                                <?php
+                                else: ?>
+                                    <li>
+                                        <a href="/categories">Категории</a>
+                                    </li>
+                                    <li>
+                                        <a href="/products">Товары</a>
+                                    </li>
+                                    <li>
+                                        <a href="/user/orders">Заказы</a>
+                                    </li>
+
+
+                                <?php
+                                endif; ?>
                             </ul>
                         </nav>
                         <button type="button" class="th-menu-toggle d-block d-lg-none"><i class="far fa-bars"></i>
@@ -268,8 +283,8 @@ $this->beginBody() ?>
                                 </a>
                             <?php
                             else: ?>
-                                <a class="favorite simple-icon" href="/user/logout">
-                                    <i class="fa-regular fa-arrow-right-from-bracket"></i>
+                                <a class="favorite simple-icon" href="/user/products">
+                                    <i class="fa-regular fa-user"></i>
                                 </a>
                             <?php
                             endif; ?>

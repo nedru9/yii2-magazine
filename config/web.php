@@ -13,6 +13,7 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
         '@upload' => '@app/web/upload',
         '@web' => '@app/web',
+        '@img' => '@app/web/img',
     ],
     'language' => 'ru-RU',
     'components' => [

@@ -7,9 +7,9 @@ use app\helpers\WebResponse;
 use app\models\LoginForm;
 use app\models\RegisterForm;
 use app\models\User;
+use Exception;
 use Throwable;
 use Yii;
-use yii\db\Exception;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
@@ -74,7 +74,7 @@ class UserController extends Controller
      * Login action.
      *
      * @return Response|string
-     * @throws \Exception
+     * @throws Exception
      */
     public function actionLogin(): Response|string
     {
@@ -106,5 +106,4 @@ class UserController extends Controller
 
         return $this->goHome();
     }
-
 }
