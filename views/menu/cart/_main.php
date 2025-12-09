@@ -75,35 +75,6 @@ else: ?>
                         <span class="amount"><bdi><?= $cart['total']; ?></bdi><span>₽</span></span>
                     </td>
                 </tr>
-                <tr class="shipping">
-                    <th>Доставка и погрузочно-разгрузочные работы</th>
-                    <td data-title="Доставка и погрузочно-разгрузочные работы">
-                        <ul class="woocommerce-shipping-methods list-unstyled">
-                            <li>
-                                <input type="radio" id="free_shipping" name="shipping_method"
-                                       class="shipping_method">
-                                <label for="free_shipping">Бесплатная доставка</label>
-                            </li>
-                            <li>
-                                <input type="radio" id="flat_rate" name="shipping_method"
-                                       class="shipping_method"
-                                       checked="checked">
-                                <label for="flat_rate">Фиксированная ставка</label>
-                            </li>
-                        </ul>
-                        <p class="woocommerce-shipping-destination">
-                            Варианты доставки будут обновлены во время оформления заказа.
-                        </p>
-                        <form action="#" method="post">
-                            <a href="#" class="shipping-calculator-button">Изменить адрес</a>
-                            <div class="shipping-calculator-form">
-                                <p class="form-row">
-                                    <input type="text" class="form-control" placeholder="Адрес">
-                                </p>
-                            </div>
-                        </form>
-                    </td>
-                </tr>
                 </tbody>
                 <tfoot>
                 <tr class="order-total">

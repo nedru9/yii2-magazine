@@ -1,5 +1,7 @@
 <?php
 
+use app\components\Cart;
+
 /**
  * This class only exists here for IDE (PHPStorm/Netbeans/...) autocompletion.
  * This file is never included anywhere.
@@ -24,6 +26,10 @@ class Yii {
  * 
  */
 class __Application {
+    /**
+     * @var mixed|object|null
+     */
+    public Cart $cart;
 }
 
 /**

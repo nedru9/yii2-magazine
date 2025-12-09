@@ -87,7 +87,10 @@ class SiteController extends Controller
      */
     public function actionCheckout(): string
     {
-        return $this->render('checkout');
+        //тут проверка если корзина пуста то перекидывать на корзину, если не пуста то в оформление заказа
+        $cart = Yii::$app->cart->getCart();
+
+        return $this->render('checkout', ['cart' => $cart]);
     }
 
     /**

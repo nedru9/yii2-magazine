@@ -1,5 +1,9 @@
 <?php
 
+/* @var array $cart */
+
+use app\components\Cart;
+
 $this->title = 'Оформление заказа';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -8,51 +12,8 @@ Checkout Arae
 ==============================-->
 <div class="th-checkout-wrapper space-top space-extra-bottom">
     <div class="container">
-        <div class="woocommerce-form-login-toggle">
-            <div class="woocommerce-info">Returning customer? <a href="#" class="showlogin">Click here to login</a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <form action="#" class="woocommerce-form-login">
-                    <div class="form-group">
-                        <label>Username or email *</label>
-                        <input type="text" class="form-control" placeholder="Username or email">
-                    </div>
-                    <div class="form-group">
-                        <label>Password *</label>
-                        <input type="text" class="form-control" placeholder="Password">
-                    </div>
-                    <div class="form-group">
-                        <div class="custom-checkbox">
-                            <input type="checkbox" id="remembermylogin">
-                            <label for="remembermylogin">Remember Me</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="th-btn">Login</button>
-                        <p class="mt-3 mb-0"><a class="text-reset" href="#">Lost your password?</a></p>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="woocommerce-form-coupon-toggle">
-            <div class="woocommerce-info">Have a coupon? <a href="#" class="showcoupon">Click here to enter your
-                    code</a></div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <form action="#" class="woocommerce-form-coupon">
-                    <div class="form-group">
-                        <label>Coupon code</label>
-                        <input type="text" class="form-control" placeholder="Write your coupon code">
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="th-btn">Apply coupon</button>
-                    </div>
-                </form>
-            </div>
-        </div>
+
+        // тут будет форма оформления заказа
         <form action="#" class="woocommerce-checkout mt-40">
             <div class="row ">
                 <div class="col-lg-6">
@@ -156,55 +117,47 @@ Checkout Arae
                 </div>
             </div>
         </form>
-        <h4 class="mt-4 pt-lg-2">Your Order</h4>
+        <h4 class="mt-4 pt-lg-2">Содержимое заказа</h4>
         <form action="#" class="woocommerce-cart-form">
             <table class="cart_table mb-20">
                 <thead>
                 <tr>
-                    <th class="cart-col-image">Image</th>
-                    <th class="cart-col-productname">Product Name</th>
-                    <th class="cart-col-price">Price</th>
-                    <th class="cart-col-quantity">Quantity</th>
-                    <th class="cart-col-total">Total</th>
+                    <th class="cart-col-image">Изображение</th>
+                    <th class="cart-col-productname">Наименование</th>
+                    <th class="cart-col-price">Цена</th>
+                    <th class="cart-col-quantity">Количество</th>
+                    <th class="cart-col-total">Итого</th>
                 </tr>
                 </thead>
                 <tbody>
+                <?php foreach ($cart[Cart::SESSION_KEY_PRODUCTS] as $item): ?>
                 <tr class="cart_item">
                     <td data-title="Product">
-                        <a class="cart-productimage" href="shop-details.php"><img width="91" height="91"
-                                                                                  src="assets/img/product/product_thumb_1_1.jpg"
-                                                                                  alt="Image"></a>
+                        <a class="cart-productimage" href="/site/shop-detail?id=<?= $item['id']; ?>"><img width="91" height="91"
+                                                                                  src="<?= $item['image']; ?>"
+                                                                                  alt="<?= $item['name']; ?>"></a>
                     </td>
                     <td data-title="Name">
-                        <a class="cart-productname" href="shop-details.php">Bosco Apple Fruit</a>
+                        <a class="cart-productname" href="/site/shop-detail?id=<?= $item['id']; ?>"><?= $item['name']; ?></a>
                     </td>
                     <td data-title="Price">
-                        <span class="amount"><bdi><span>$</span>18</bdi></span>
+                        <span class="amount"><bdi><?= $item['price']; ?></bdi><span>₽</span></span>
                     </td>
                     <td data-title="Quantity">
-                        <strong class="product-quantity">01</strong>
+                        <strong class="product-quantity"><?= $item['count']; ?></strong>
                     </td>
                     <td data-title="Total">
-                        <span class="amount"><bdi><span>$</span>18</bdi></span>
+                        <span class="amount"><bdi><?= $item['total']; ?></bdi><span>₽</span></span>
                     </td>
                 </tr>
+
+                <?php endforeach; ?>
                 </tbody>
                 <tfoot class="checkout-ordertable">
                 <tr class="cart-subtotal">
-                    <th>Subtotal</th>
-                    <td data-title="Subtotal" colspan="4"><span class="woocommerce-Price-amount amount"><bdi><span
-                                        class="woocommerce-Price-currencySymbol">$</span>281.05</bdi></span></td>
-                </tr>
-                <tr class="woocommerce-shipping-totals shipping">
-                    <th>Shipping</th>
-                    <td data-title="Shipping" colspan="4"> Enter your address to view shipping options.
-                    </td>
-                </tr>
-                <tr class="order-total">
-                    <th>Total</th>
-                    <td data-title="Total" colspan="4"><strong><span class="woocommerce-Price-amount amount"><bdi><span
-                                            class="woocommerce-Price-currencySymbol">$</span>281.05</bdi></span></strong>
-                    </td>
+                    <th>Итого</th>
+                    <td data-title="Subtotal" colspan="4"><span class="woocommerce-Price-amount amount"><bdi><?= $cart['total']; ?></bdi><span
+                                    class="woocommerce-Price-currencySymbol">₽</span></span></td>
                 </tr>
                 </tfoot>
             </table>
@@ -217,7 +170,7 @@ Checkout Arae
                                value="bacs" checked="checked">
                         <label for="payment_method_bacs">Direct bank transfer</label>
                         <div class="payment_box payment_method_bacs">
-                            <p>Make your payment directly into our bank account. Please use your Order ID as the payment
+                            <p>Make your payment directly into our bank account. Please use app\components\Cart;use your Order ID as the payment
                                 reference. Your order will not be shipped until the funds have cleared in our account.
                             </p>
                         </div>
