@@ -992,7 +992,7 @@
      * Ajax-загрузка главной корзины
      */
     function reloadMainCart() {
-        $.get('/cart/main', function (html) {
+        $.get('/cart/main-cart', function (html) {
             $('.cart-container').html(html); // тут твой селектор контейнера
         });
     }
