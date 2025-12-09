@@ -45,6 +45,7 @@
         });
     }
 
+
     /*---------- 03. Mobile Menu ----------*/
     $.fn.thmobilemenu = function (options) {
         var opt = $.extend(
@@ -155,7 +156,7 @@
 
     /*---------- 05. Scroll To Top ----------*/
     if ($('.scroll-top').length > 0) {
-        
+
         var scrollTopbtn = document.querySelector('.scroll-top');
         var progressPath = document.querySelector('.scroll-top path');
         var pathLength = progressPath.getTotalLength();
@@ -163,7 +164,7 @@
         progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
         progressPath.style.strokeDashoffset = pathLength;
         progressPath.getBoundingClientRect();
-        progressPath.style.transition = progressPath.style.WebkitTransition = 'stroke-dashoffset 10ms linear';		
+        progressPath.style.transition = progressPath.style.WebkitTransition = 'stroke-dashoffset 10ms linear';
         var updateProgress = function () {
             var scroll = $(window).scrollTop();
             var height = $(document).height() - $(window).height();
@@ -171,17 +172,17 @@
             progressPath.style.strokeDashoffset = progress;
         }
         updateProgress();
-        $(window).scroll(updateProgress);	
+        $(window).scroll(updateProgress);
         var offset = 50;
         var duration = 750;
-        jQuery(window).on('scroll', function() {
+        jQuery(window).on('scroll', function () {
             if (jQuery(this).scrollTop() > offset) {
                 jQuery(scrollTopbtn).addClass('show');
             } else {
                 jQuery(scrollTopbtn).removeClass('show');
             }
-        });				
-        jQuery(scrollTopbtn).on('click', function(event) {
+        });
+        jQuery(scrollTopbtn).on('click', function (event) {
             event.preventDefault();
             jQuery('html, body').animate({scrollTop: 0}, duration);
             return false;
@@ -199,28 +200,30 @@
 
     if ($('[data-bg-color]').length > 0) {
         $('[data-bg-color]').each(function () {
-          var color = $(this).attr('data-bg-color');
-          $(this).css('background-color', color);
-          $(this).removeAttr('data-bg-color');
+            var color = $(this).attr('data-bg-color');
+            $(this).css('background-color', color);
+            $(this).removeAttr('data-bg-color');
         });
-    };
+    }
+    ;
 
-    $('[data-border]').each(function() {
+    $('[data-border]').each(function () {
         var borderColor = $(this).data('border');
         $(this).css('--th-border-color', borderColor);
     });
-      
+
     if ($('[data-mask-src]').length > 0) {
         $('[data-mask-src]').each(function () {
-          var mask = $(this).attr('data-mask-src');
-          $(this).css({
-            'mask-image': 'url(' + mask + ')',
-            '-webkit-mask-image': 'url(' + mask + ')'
-          });
-          $(this).addClass('bg-mask');
-          $(this).removeAttr('data-mask-src');
+            var mask = $(this).attr('data-mask-src');
+            $(this).css({
+                'mask-image': 'url(' + mask + ')',
+                '-webkit-mask-image': 'url(' + mask + ')'
+            });
+            $(this).addClass('bg-mask');
+            $(this).removeAttr('data-mask-src');
         });
-    };
+    }
+    ;
 
     /*----------- 07. Global Slider ----------*/
 
@@ -244,11 +247,11 @@
             autoplay: autoplayconditon ? autoplayconditon : {delay: 6000, disableOnInteraction: false},
             navigation: {
                 nextEl: nextArrow.get(0),
-                prevEl: prevArrow.get(0),  
+                prevEl: prevArrow.get(0),
             },
             pagination: {
                 el: paginationEl.get(0),
-                clickable: true, 
+                clickable: true,
                 renderBullet: function (index, className) {
                     return '<span class="' + className + '" aria-label="Go to Slide ' + (index + 1) + '"></span>';
                 },
@@ -277,6 +280,7 @@
             $(this).css('animation-delay', delayTime);
         });
     }
+
     animationProperties();
 
     // Add click event handlers for external slider arrows based on data attributes
@@ -289,9 +293,9 @@
 
             if (swiper) {
                 if ($(this).data('slider-prev')) {
-                    swiper.slidePrev(); 
+                    swiper.slidePrev();
                 } else {
-                    swiper.slideNext(); 
+                    swiper.slideNext();
                 }
             }
         }
@@ -325,9 +329,9 @@
                     // Clear the form.
                     $(
                         form +
-                            ' input:not([type="submit"]),' +
-                            form +
-                            " textarea"
+                        ' input:not([type="submit"]),' +
+                        form +
+                        " textarea"
                     ).val("");
                 })
                 .fail(function (data) {
@@ -363,6 +367,7 @@
                 }
             }
         }
+
         unvalid($validation);
 
         if (
@@ -407,28 +412,29 @@
             $($searchBox).removeClass($toggleCls);
         });
     }
-    popupSarchBox( ".popup-search-box", ".searchBoxToggler", ".searchClose", "show" );
+
+    popupSarchBox(".popup-search-box", ".searchBoxToggler", ".searchClose", "show");
 
     /*---------- 10. Popup Sidemenu ----------*/
     function popupSideMenu($sideMenu, $sideMunuOpen, $sideMenuCls, $toggleCls) {
         // Sidebar Popup
         $($sideMunuOpen).on('click', function (e) {
-        e.preventDefault();
-        $($sideMenu).addClass($toggleCls);
+            e.preventDefault();
+            $($sideMenu).addClass($toggleCls);
         });
         $($sideMenu).on('click', function (e) {
-        e.stopPropagation();
-        $($sideMenu).removeClass($toggleCls)
+            e.stopPropagation();
+            $($sideMenu).removeClass($toggleCls)
         });
         var sideMenuChild = $sideMenu + ' > div';
         $(sideMenuChild).on('click', function (e) {
-        e.stopPropagation();
-        $($sideMenu).addClass($toggleCls)
+            e.stopPropagation();
+            $($sideMenu).addClass($toggleCls)
         });
         $($sideMenuCls).on('click', function (e) {
-        e.preventDefault();
-        e.stopPropagation();
-        $($sideMenu).removeClass($toggleCls);
+            e.preventDefault();
+            e.stopPropagation();
+            $($sideMenu).removeClass($toggleCls);
         });
     };
     popupSideMenu('.sidemenu-cart', '.sideMenuToggler', '.sideMenuCls', 'show');
@@ -438,7 +444,7 @@
     /* magnificPopup img view */
     $(".popup-image").magnificPopup({
         type: "image",
-        mainClass: 'mfp-zoom-in', 
+        mainClass: 'mfp-zoom-in',
         removalDelay: 260,
         gallery: {
             enabled: true,
@@ -457,6 +463,7 @@
     });
 
     /*---------- 12. Section Position ----------*/
+
     // Interger Converter
     function convertInteger(str) {
         return parseInt(str, 10);
@@ -489,6 +496,7 @@
                     section.css("margin-bottom", "-" + sectionHeight + "px");
                 }
             }
+
             setPosition(); // Set Padding On Load
         });
     };
@@ -590,12 +598,12 @@
     }
 
     /*----------- 16. Progress Bar Animation ----------*/
-    $('.progress-bar').waypoint(function() {
+    $('.progress-bar').waypoint(function () {
         $('.progress-bar').css({
-        animation: "animate-positive 1.8s",
-        opacity: "1"
+            animation: "animate-positive 1.8s",
+            opacity: "1"
         });
-    }, { offset: '75%' });
+    }, {offset: '75%'});
 
     /*----------- 17. Countdown ----------*/
 
@@ -700,7 +708,7 @@
     }
 
     $(".svg-img").inlineSvg();
-    
+
 
     /*----------- 00. Woocommerce Toggle ----------*/
     // Ship To Different Address
@@ -753,36 +761,14 @@
         });
     });
 
-    // Quantity Plus Minus ---------------------------
-
-    $(".quantity-plus").each(function () {
-        $(this).on("click", function (e) {
-            e.preventDefault();
-            var $qty = $(this).siblings(".qty-input");
-            var currentVal = parseInt($qty.val(), 10);
-            if (!isNaN(currentVal)) {
-                $qty.val(currentVal + 1);
-            }
-        });
-    });
-
-    $(".quantity-minus").each(function () {
-        $(this).on("click", function (e) {
-            e.preventDefault();
-            var $qty = $(this).siblings(".qty-input");
-            var currentVal = parseInt($qty.val(), 10);
-            if (!isNaN(currentVal) && currentVal > 1) {
-                $qty.val(currentVal - 1);
-            }
-        });
-    });
 
     let body = $('body');
 
     /**
      * Добавление в избранное
      */
-    body.on('click', '.star--product--js', function () {
+    body.on('click', '.star--product--js', function (e) {
+        e.preventDefault();
         let changeButton = $(this);
         let productId = changeButton.data('product');
 
@@ -791,8 +777,8 @@
         })
 
         sender.send({
-            action: '/site/favorite-product',
-            type: 'GET',
+            action: '/favorite/favorite-product',
+            type: 'POST',
             queryParams: {
                 id: productId
             },
@@ -802,7 +788,7 @@
                 }
 
                 let response = ajaxResponse.getData()
-                let isFavorite = response.favorites.some(function(item) {
+                let isFavorite = response.favorites.some(function (item) {
                     return item == productId;
                 });
 
@@ -816,13 +802,13 @@
             }
         });
 
-    })
-
+    });
 
     /**
      * Удаление из избранного
      */
-    body.on('click', '.favorite-remove--js', function () {
+    body.on('click', '.favorite-remove--js', function (e) {
+        e.preventDefault();
         let changeButton = $(this);
         let productId = changeButton.data('product');
 
@@ -831,8 +817,8 @@
         })
 
         sender.send({
-            action: '/site/favorite-product',
-            type: 'GET',
+            action: '/favorite/favorite-product',
+            type: 'POST',
             queryParams: {
                 id: productId
             },
@@ -842,7 +828,7 @@
                 }
 
                 let response = ajaxResponse.getData()
-                let isFavorite = response.favorites.some(function(item) {
+                let isFavorite = response.favorites.some(function (item) {
                     return item == productId;
                 });
 
@@ -859,46 +845,159 @@
 
     })
 
+    /**
+     * Удаление из корзины и мини-корзины
+     */
+    body.on('click', '.remove-cart--js', function (e) {
+        e.preventDefault();
 
+        let button = $(this);
+        let productId = button.data('product');
 
+        let sender = new AjaxSender({
+            buttonBlock: button,
+        });
 
+        sender.send({
+            action: '/cart/remove',
+            type: 'POST',
+            queryParams: {
+                id: productId
+            },
+            successCallback: function (ajaxResponse) {
 
+                if (ajaxResponse.hasErrorStatus()) {
+                    return false;
+                }
 
+                let response = ajaxResponse.getData();
+                button.closest('.woocommerce-mini-cart-item').remove();
+                button.closest('.cart-item-row').remove();
+                reloadMainCart();
+                $('.cart.simple-icon span').html(response.cartCount);
+                $('.cart_totals .amount bdi').html(response.total);
+            }
+        });
+    });
 
+    /**
+     * Ограничение ввода количества (плюс)
+     */
+    body.on('click', '.quantity-plus', function (e) {
+        e.preventDefault();
+        let input = $(this).closest('.quantity').find('.update-count--js');
+        let val = parseInt(input.val());
+        let max = parseInt(input.attr('max'));
 
+        if (val < max) {
+            input.val(val + 1).trigger('change');
+        }
+    });
 
-    
-    // /*----------- 00. Right Click Disable ----------*/
-    //   window.addEventListener('contextmenu', function (e) {
-    //     // do something here...
-    //     e.preventDefault();
-    //   }, false);
+    /**
+     * Ограничение ввода количества (минус)
+     */
+    body.on('click', '.quantity-minus', function (e) {
+        e.preventDefault();
+        let input = $(this).closest('.quantity').find('.update-count--js');
+        let val = parseInt(input.val());
+        let min = parseInt(input.attr('min'));
 
-    // /*----------- 00. Inspect Element Disable ----------*/
-    //   document.onkeydown = function (e) {
-    //     if (event.keyCode == 123) {
-    //       return false;
-    //     }
-    //     if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-    //       return false;
-    //     }
-    //     if (e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) {
-    //       return false;
-    //     }
-    //     if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-    //       return false;
-    //     }
-    //     if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-    //       return false;
-    //     }
-    //   }
-    
+        if (val > min) {
+            input.val(val - 1).trigger('change');
+        }
+    });
+
+    /**
+     * Ограничение ввода количества
+     */
+    body.on('input', '.update-count--js', function (e) {
+        e.preventDefault();
+        let input = $(this);
+        let val = parseInt(input.val());
+        let min = parseInt(input.attr('min'));
+        let max = parseInt(input.attr('max'));
+
+        if (val < min) input.val(min);
+        if (val > max) input.val(max);
+    });
+
+    /**
+     * Обновление количества
+     */
+    body.on('change', '.update-count--js', function (e) {
+        e.preventDefault();
+        let input = $(this);
+        let productId = input.data('product');
+        let count = parseInt(input.val());
+
+        let sender = new AjaxSender({});
+
+        sender.send({
+            action: '/cart/update',
+            type: 'POST',
+            queryParams: {
+                id: productId,
+                count: count
+            },
+            successCallback: function (ajaxResponse = {}) {
+
+                if (ajaxResponse.hasErrorStatus()) {
+                    return false;
+                }
+
+                let response = ajaxResponse.getData();
+
+                reloadMainCart();
+                $('.cart_totals .amount bdi').text(response.total);
+                $('.simple-icon.cart span').text(response.cartCount);
+            }
+        });
+    });
+
+    /**
+     * Добавление в корзину
+     */
+    body.on('click', '.add-to-cart--js', function (e) {
+        e.preventDefault();
+        let changeButton = $(this);
+
+        let sender = new AjaxSender({
+            buttonBlock: changeButton,
+        })
+
+        sender.send({
+            action: '/cart/add',
+            type: 'POST',
+            queryParams: {
+                id: $(this).data('product'),
+                count: $(this).data('count') || 1
+            },
+            successCallback: function (ajaxResponse, callbackParams = {}) {
+                if (ajaxResponse.hasErrorStatus()) {
+                    return false;
+                }
+
+                let response = ajaxResponse.getData()
+
+                $('.cart.simple-icon span').html(response.cartCount);
+            },
+            callbackParams: {
+                starButton: changeButton,
+            }
+        });
+    });
+
+    /**
+     * Ajax-загрузка главной корзины
+     */
+    function reloadMainCart() {
+        $.get('/cart/main', function (html) {
+            $('.cart-container').html(html); // тут твой селектор контейнера
+        });
+    }
+
 })(jQuery);
-
-
-
-
-
 
 
 

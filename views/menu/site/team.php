@@ -35,9 +35,9 @@
                                         <ul class="sub-menu">
                                             <li><a href="shop.php">Shop</a></li>
                                             <li><a href="shop-details.php">Shop Details</a></li>
-                                            <li><a href="cart.php">Cart Page</a></li>
+                                            <li><a href="../cart/cart.php">Cart Page</a></li>
                                             <li><a href="checkout.php">Checkout</a></li>
-                                            <li><a href="wishlist.php">Wishlist</a></li>
+                                            <li><a href="../favorite/wishlist.php">Wishlist</a></li>
                                         </ul>
                                     </li>
                                     <li><a href="team.html">Team</a></li>

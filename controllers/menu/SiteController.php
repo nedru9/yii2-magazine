@@ -2,8 +2,6 @@
 
 namespace app\controllers\menu;
 
-use app\entities\Favorite;
-use app\exceptions\ExceptionFactory;
 use app\helpers\WebResponse;
 use app\models\Category;
 use app\models\CategoryNews;
@@ -11,7 +9,7 @@ use app\models\News;
 use app\models\NewsSearch;
 use app\models\Product;
 use app\models\ProductSearch;
-use PHPUnit\Exception;
+use Exception;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -43,10 +41,7 @@ class SiteController extends Controller
                             'blog',
                             'blog-details',
                             'shop',
-                            'cart',
                             'checkout',
-                            'wishlist',
-                            'favorite-product',
                         ],
                         'allow' => true,
                     ],
@@ -96,29 +91,6 @@ class SiteController extends Controller
     }
 
     /**
-     * Отображение страницы избранного
-     *
-     * @return string
-     */
-    public function actionWishlist(): string
-    {
-        $favorites = Favorite::getFavorites();
-        $products = Product::find()->where(['id' => $favorites])->all();
-
-        return $this->render('wishlist', ['products' => $products]);
-    }
-
-    /**
-     * Отображение страницы с корзиной
-     *
-     * @return string
-     */
-    public function actionCart(): string
-    {
-        return $this->render('cart');
-    }
-
-    /**
      * Отображение страницы контактов
      *
      * @return string
@@ -160,17 +132,12 @@ class SiteController extends Controller
     public function actionBlogDetails(): Response|string
     {
         try {
-            $new = News::findOne(['id' => Yii::$app->request->get('id')]);
-
-            if (empty($new)) {
-                throw ExceptionFactory::entityException('Новость не найдена');
-            }
+            $new = News::getNew(Yii::$app->request->get('id'));
         } catch (Exception $e) {
             WebResponse::setError('Ошибка: ' . $e->getMessage());
 
             return $this->redirect(Yii::$app->request->referrer);
         }
-
 
         return $this->render('blog-details', ['new' => $new]);
     }
@@ -197,26 +164,6 @@ class SiteController extends Controller
     }
 
     /**
-     * Добавление в избранное
-     *
-     * @return string
-     */
-    public function actionFavoriteProduct(): string
-    {
-        try {
-            $product = Product::getProduct(Yii::$app->request->get('id'));
-            Favorite::toggleFavorite($product->id, Yii::$app->request);
-            $favorites = Favorite::getFavorites(Yii::$app->response);
-            $favoritesCount = count($favorites);
-        } catch (\Exception $e) {
-            return WebResponse::ajaxError($e->getMessage());
-        }
-
-        return WebResponse::ajaxSuccess(['favorites' => $favorites, 'favoritesCount' => $favoritesCount]);
-    }
-
-
-    /**
      * Отображение страницы товара
      *
      * @return Response|string
@@ -226,7 +173,7 @@ class SiteController extends Controller
         try {
             $product = Product::getProduct(Yii::$app->request->get('id'));
             $products = Product::findAll(['categoryId' => $product->categoryId]);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             WebResponse::setError($e->getMessage());
 
             return $this->redirect(Yii::$app->request->referrer);

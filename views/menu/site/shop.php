@@ -86,7 +86,8 @@ Product Area
                                         '@web'
                                     ) . '/img/no-photo.png'; ?>" alt="<?= $product->title; ?>">
                                 <div class="actions">
-                                    <a href="cart.php" class="icon-btn"><i class="far fa-cart-plus"></i></a>
+                                    <a href=".javascript:void(0)" class="icon-btn add-to-cart--js"
+                                       data-product="<?= $product->id; ?>"><i class="far fa-cart-plus"></i></a>
                                     <a href="javascript:void(0)" class="icon-btn star--product--js"
                                        data-product="<?= $product->id; ?>">
                                         <?php

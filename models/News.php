@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\exceptions\ExceptionFactory;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
@@ -68,5 +69,23 @@ class News extends ActiveRecord
     public function getCategory(): ActiveQuery
     {
         return $this->hasOne(CategoryNews::class, ['id' => 'categoryId']);
+    }
+
+    /**
+     * Поиск новости по Id
+     *
+     * @param int $id
+     *
+     * @return self
+     */
+    public static function getNew(int $id): self
+    {
+        $new = self::findOne($id);
+
+        if (empty($new)) {
+            throw ExceptionFactory::entityException('Новость не найден');
+        }
+
+        return $new;
     }
 }

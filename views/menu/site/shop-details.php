@@ -1,12 +1,12 @@
 <?php
 
+use app\entities\Favorite;
+use app\models\Product;
+
 /**
  * @var Product $product
  * @var Product[] $products
  */
-
-use app\entities\Favorite;
-use app\models\Product;
 
 $this->title = $product->title;
 $this->params['breadcrumbs'][] = ['url' => '/site/shop', 'label' => 'Товары'];
@@ -54,14 +54,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="actions">
                         <?php
                         if ($product->count > 0): ?>
-                            <div class="quantity">
-                                <input type="number" class="qty-input" step="1" min="1" max="100" name="quantity"
-                                       value="1"
-                                       title="Qty">
-                                <button class="quantity-plus qty-btn"><i class="far fa-chevron-up"></i></button>
-                                <button class="quantity-minus qty-btn"><i class="far fa-chevron-down"></i></button>
-                            </div>
-                            <button class="th-btn">В корзину</button>
+                            <button class="th-btn add-to-cart--js" data-product="<?= $product->id; ?>">В корзину
+                            </button>
                         <?php
                         endif; ?>
 
@@ -139,7 +133,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <div class="product-img">
                                             <img src="<?= $otherProduct->image; ?>" alt="<?= $otherProduct->title; ?>">
                                             <div class="actions">
-                                                <a href="cart.php" class="icon-btn"><i class="far fa-cart-plus"></i></a>
+                                                <a href="../cart/cart.php" class="icon-btn"><i
+                                                            class="far fa-cart-plus"></i></a>
                                                 <a href="javascript:void(0)" class="icon-btn star--product--js"
                                                    data-product="<?= $product->id; ?>">
                                                     <?php

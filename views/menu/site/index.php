@@ -1,15 +1,15 @@
 <?php
-/**
- * @var Category[] $categories
- * @var News[] $news
- * @var Product[] $products
- */
 
 use app\entities\Favorite;
 use app\models\Category;
 use app\models\News;
 use app\models\Product;
 
+/**
+ * @var Category[] $categories
+ * @var News[] $news
+ * @var Product[] $products
+ */
 
 ?>
 
@@ -265,9 +265,12 @@ Product Area
                 <div class="col-xl-3 col-lg-4 col-sm-6 filter-item cat<?= $product->categoryId; ?>">
                     <div class="th-product product-grid">
                         <div class="product-img">
-                            <img src="<?= $product->image; ?>" alt="<?= $product->title; ?>">
+                            <img src="<?= !empty($product->image) ? $product->image : Yii::getAlias(
+                                    '@web'
+                                ) . '/img/no-photo.png'; ?>" alt="<?= $product->title; ?>">
                             <div class="actions">
-                                <a href="cart.php?id=<?= $product->id; ?>" class="icon-btn"><i
+                                <a href="javascript:void(0)" data-product="<?= $product->id; ?>"
+                                   class="icon-btn add-to-cart--js"><i
                                             class="far fa-cart-plus"></i></a>
                                 <a href="javascript:void(0)" class="icon-btn star--product--js"
                                    data-product="<?= $product->id; ?>">

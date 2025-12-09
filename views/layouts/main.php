@@ -1,9 +1,7 @@
 <?php
 
 /** @var yii\web\View $this */
-
 /** @var string $content */
-
 /** @var int $favoriteCount */
 
 use app\assets\AppAsset;
@@ -20,6 +18,8 @@ $this->registerMetaTag(['name' => 'viewport', 'content' => 'width=device-width, 
 $this->registerMetaTag(['name' => 'description', 'content' => $this->params['meta_description'] ?? '']);
 $this->registerMetaTag(['name' => 'keywords', 'content' => $this->params['meta_keywords'] ?? '']);
 $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii::getAlias('@web/favicon.ico')]);
+
+$cart = Yii::$app->cart->getCart();
 ?>
 <?php
 $this->beginPage() ?>
@@ -125,39 +125,6 @@ $this->beginBody() ?>
     </div>
 </div>
 
-<!--==============================
-    Sidemenu
-============================== -->
-<div class="sidemenu-wrapper sidemenu-cart d-none d-lg-block ">
-    <div class="sidemenu-content">
-        <button class="closeButton sideMenuCls"><i class="far fa-times"></i></button>
-        <div class="widget woocommerce widget_shopping_cart">
-            <h3 class="widget_title">Корзина</h3>
-            <div class="widget_shopping_cart_content">
-                <ul class="woocommerce-mini-cart cart_list product_list_widget ">
-                    <li class="woocommerce-mini-cart-item mini_cart_item">
-                        <a href="#" class="remove remove_from_cart_button"><i class="far fa-times"></i></a>
-                        <a href="#"><img src="<?= Yii::getAlias('@web') ?>/img/product/product_thumb_1_1.jpg"
-                                         alt="Cart Image">Bosco Apple Fruit</a>
-                        <span class="quantity">1 ×
-                                <span class="woocommerce-Price-amount amount">
-                                    <span class="woocommerce-Price-currencySymbol">$</span>940.00</span>
-                            </span>
-                    </li>
-                </ul>
-                <p class="woocommerce-mini-cart__total total">
-                    <strong>Итого:</strong>
-                    <span class="woocommerce-Price-amount amount">
-                            4398.00₽</span>
-                </p>
-                <p class="woocommerce-mini-cart__buttons buttons">
-                    <a href="/site/cart" class="th-btn wc-forward">Корзина</a>
-                    <a href="/site/checkout" class="th-btn checkout wc-forward">Оформить</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="popup-search-box d-none d-lg-block">
     <button class="searchClose"><i class="fal fa-times"></i></button>
     <form action="#">
@@ -272,14 +239,14 @@ $this->beginBody() ?>
                         <div class="header-button">
                             <button type="button" class="simple-icon searchBoxToggler"><i class="far fa-search"></i>
                             </button>
-                            <a class="favorite simple-icon" href="/site/wishlist">
+                            <a class="favorite simple-icon" href="/favorite/wishlist">
                                 <span class="badge"><?= count(Favorite::getFavorites()); ?></span>
                                 <i class="fa-regular fa-heart"></i>
                             </a>
-                            <button type="button" class="simple-icon sideMenuToggler">
-                                <span class="badge">5</span>
+                            <a href="/cart/cart" class="simple-icon cart">
+                                <span class="badge"><?= Yii::$app->cart->getTotalCount(); ?></span>
                                 <i class="fa-regular fa-cart-shopping"></i>
-                            </button>
+                            </a>
                             <?php
                             if (Yii::$app->user->isGuest === true): ?>
                                 <a class="favorite simple-icon" href="/user/login">
