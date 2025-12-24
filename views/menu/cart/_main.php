@@ -1,14 +1,14 @@
 <?php
 
+/* @var array $cart */
+
 use app\components\Cart;
 
-/* @var array $cart */
 if (empty($cart[Cart::SESSION_KEY_PRODUCTS])): ?>
     В корзине ничего нет
 
 <?php
 else: ?>
-
     <form action="#" class="woocommerce-cart-form">
         <table class="cart_table">
             <thead>
@@ -77,13 +77,6 @@ else: ?>
                 </tr>
                 </tbody>
                 <tfoot>
-                <tr class="order-total">
-                    <td>Общее количество заказов</td>
-                    <td data-title="Итого">
-                        <strong><span class="amount"><bdi>47</bdi><span>₽</span></span></strong>
-                    </td>
-                </tr>
-                </tfoot>
             </table>
             <div class="wc-proceed-to-checkout mb-30">
                 <a href="/site/checkout" class="th-btn">Перейти к оформлению заказа</a>

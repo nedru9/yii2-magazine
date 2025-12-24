@@ -2,11 +2,13 @@
 
 namespace app\controllers\menu;
 
+use app\exceptions\ExceptionFactory;
 use app\helpers\WebResponse;
 use app\models\Category;
 use app\models\CategoryNews;
 use app\models\News;
 use app\models\NewsSearch;
+use app\models\OrderForm;
 use app\models\Product;
 use app\models\ProductSearch;
 use Exception;
@@ -42,6 +44,7 @@ class SiteController extends Controller
                             'blog-details',
                             'shop',
                             'checkout',
+                            'order-success',
                         ],
                         'allow' => true,
                     ],
@@ -81,16 +84,54 @@ class SiteController extends Controller
     }
 
     /**
-     * Отображение страницы оформления заказа
+     * Оформление заказа
      *
-     * @return string
+     * @return Response|string
      */
-    public function actionCheckout(): string
+    public function actionCheckout(): Response|string
     {
-        //тут проверка если корзина пуста то перекидывать на корзину, если не пуста то в оформление заказа
-        $cart = Yii::$app->cart->getCart();
+        try {
+            $cartCount = Yii::$app->cart->getTotalCount();
 
-        return $this->render('checkout', ['cart' => $cart]);
+            if ($cartCount === 0) {
+                throw ExceptionFactory::entityException('Корзина пуста');
+            }
+
+            $orderForm = new OrderForm();
+            $cart = Yii::$app->cart;
+
+            if ($orderForm->load(Yii::$app->request->post()) && $orderForm->validate()) {
+                $orderId = $orderForm->saveFullOrder($cart);
+
+                if ($orderId === false) {
+                    throw ExceptionFactory::entityException('Ошибка сохранения заказа');
+                }
+
+                return $this->redirect(['site/order-success', 'orderId' => $orderId]);
+            }
+
+            return $this->render('checkout', ['cart' => $cart->getCart(), 'orderForm' => $orderForm]);
+        } catch (Exception $e) {
+            WebResponse::setError($e->getMessage());
+
+            return $this->redirect(Yii::$app->request->referrer);
+        }
+    }
+
+    /**
+     * Отображение страницы успешного заказа
+     *
+     * @return Response|string
+     */
+    public function actionOrderSuccess(): Response|string
+    {
+        try {
+            return $this->render('order-success', ['orderId' => Yii::$app->request->get('orderId')]);
+        } catch (Exception $e) {
+            WebResponse::setError($e->getMessage());
+
+            return $this->redirect('site/index');
+        }
     }
 
     /**
