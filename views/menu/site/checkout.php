@@ -1,7 +1,6 @@
 <?php
 
 /* @var array $cart */
-
 /* @var OrderForm $orderForm */
 
 use app\components\Cart;
@@ -13,7 +12,6 @@ use yii\widgets\ActiveForm;
 $this->title = 'Оформление заказа';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
 
 <div class="th-checkout-wrapper space-top space-extra-bottom">
     <div class="container">
@@ -30,7 +28,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'woocommerce-checkout mt-40',
             ]
         ]); ?>
-
 
         <div class="row">
             <div class="col-12">
@@ -60,10 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         ]) ?>
                 </div>
             </div>
-
-
         </div>
-
 
         <h4 class="mt-4 pt-lg-2">Содержимое заказа</h4>
         <table class="cart_table mb-20">
@@ -81,10 +75,12 @@ $this->params['breadcrumbs'][] = $this->title;
             foreach ($cart[Cart::SESSION_KEY_PRODUCTS] as $item): ?>
                 <tr class="cart_item">
                     <td data-title="Product">
-                        <a class="cart-productimage" href="/site/shop-detail?id=<?= $item['id']; ?>"><img width="91"
-                                                                                                          height="91"
-                                                                                                          src="<?= $item['image']; ?>"
-                                                                                                          alt="<?= $item['name']; ?>"></a>
+                        <a class="cart-productimage" href="/site/shop-detail?id=<?= $item['id']; ?>">
+                            <img width="91" height="91"
+                                 src="<?= !empty($item['image']) ? $item['image'] : Yii::getAlias(
+                                         '@web'
+                                     ) . '/img/no-photo.png'; ?>" alt="<?= $item['name']; ?>">
+                        </a>
                     </td>
                     <td data-title="Name">
                         <a class="cart-productname"
@@ -100,15 +96,18 @@ $this->params['breadcrumbs'][] = $this->title;
                         <span class="amount"><bdi><?= $item['total']; ?></bdi><span>₽</span></span>
                     </td>
                 </tr>
-
             <?php
             endforeach; ?>
             </tbody>
             <tfoot class="checkout-ordertable">
             <tr class="cart-subtotal">
                 <th>Итого</th>
-                <td data-title="Subtotal" colspan="4"><span class="woocommerce-Price-amount amount"><bdi><?= $cart['total']; ?></bdi><span
-                                class="woocommerce-Price-currencySymbol">₽</span></span></td>
+                <td data-title="Subtotal" colspan="4">
+                    <span class="woocommerce-Price-amount amount">
+                        <bdi><?= $cart['total']; ?></bdi>
+                        <span class="woocommerce-Price-currencySymbol">₽</span>
+                    </span>
+                </td>
             </tr>
             </tfoot>
         </table>
@@ -119,8 +118,6 @@ $this->params['breadcrumbs'][] = $this->title;
                         PaymentMethod::list(),
                         [
                             'item' => function ($index, $label, $name, $checked, $value) {
-                                $checkedAttr = $checked ? 'checked' : '';
-
                                 return <<<HTML
                                 <li class="wc_payment_method payment_method_bacs">
                                     <input type="radio" name="{$name}" value="{$value}" checked class="input-radio">

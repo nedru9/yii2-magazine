@@ -26,10 +26,13 @@ else: ?>
             foreach ($cart[Cart::SESSION_KEY_PRODUCTS] as $item): ?>
                 <tr class="cart_item">
                     <td data-title="Product">
-                        <a class="cart-productimage" href="/site/shop-detail?id=<?= $item['id']; ?>"><img
-                                    width="91" height="91"
-                                    src="<?= $item['image']; ?>"
-                                    alt="<?= $item['name']; ?>"></a>
+                        <a class="cart-productimage" href="/site/shop-detail?id=<?= $item['id']; ?>">
+                            <img width="91" height="91"
+                                    src="<?= !empty($item['image']) ? $item['image'] : Yii::getAlias(
+                                            '@web'
+                                        ) . '/img/no-photo.png'; ?>"
+                                    alt="<?= $item['name']; ?>">
+                        </a>
                     </td>
                     <td data-title="Name">
                         <a class="cart-productname"

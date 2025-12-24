@@ -25,7 +25,11 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="row gx-60">
             <div class="col-lg-6">
                 <div class="product-big-img">
-                    <div class="img"><img src="<?= $product->image; ?>" alt="<?= $this->title; ?>"></div>
+                    <div class="img">
+                        <img src="<?= !empty($product->image) ? $product->image : Yii::getAlias(
+                                '@web'
+                            ) . '/img/no-photo.png'; ?>" alt="<?= $product->title; ?>">
+                    </div>
                 </div>
             </div>
             <div class="col-lg-6 align-self-center">
@@ -131,7 +135,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <div class="swiper-slide">
                                     <div class="th-product product-grid">
                                         <div class="product-img">
-                                            <img src="<?= $otherProduct->image; ?>" alt="<?= $otherProduct->title; ?>">
+                                            <img src="<?= !empty($otherProduct->image) ? $otherProduct->image : Yii::getAlias(
+                                                    '@web'
+                                                ) . '/img/no-photo.png'; ?>" alt="<?= $product->title; ?>">
                                             <div class="actions">
                                                 <a href="../cart/cart.php" class="icon-btn"><i
                                                             class="far fa-cart-plus"></i></a>
