@@ -17,6 +17,7 @@ use yii\db\ActiveRecord;
  * @property string $address Адрес
  * @property double $total Сумма
  * @property int $status Статус
+ * @property int $paymentType Тип оплаты
  * @property string $dateCreate Дата создания
  *
  * @property OrderItem[] $items Позиции в заказе
@@ -38,12 +39,12 @@ class Order extends ActiveRecord
     public function rules(): array
     {
         return [
-            [['name', 'phone', 'email', 'address', 'total', 'status'], 'required'],
+            [['name', 'phone', 'email', 'address', 'total', 'status', 'paymentType'], 'required'],
             [['comment', 'address'], 'string'],
             [['name', 'phone', 'email'], 'string', 'max' => 255],
             [['email'], 'email'],
             [['total'], 'number'],
-            [['status'], 'integer'],
+            [['status', 'paymentType'], 'integer'],
             [['dateCreate'], 'safe'],
         ];
     }
@@ -62,6 +63,7 @@ class Order extends ActiveRecord
             'total' => 'Сумма',
             'status' => 'Статус',
             'dateCreate' => 'Дата создания',
+            'paymentType' => 'Тип оплаты',
         ];
     }
 

@@ -80,17 +80,7 @@ class OrderForm extends Model
         $transaction = Yii::$app->db->beginTransaction();
 
         try {
-            $order = new Order();
-            $order->name = $this->fullName;
-            $order->phone = $this->phone;
-            $order->email = $this->email;
-            $order->address = $this->address;
-            $order->total = $cart->getTotalSum();
-            $order->status = Status::NEW->value;
-
-            if ($order->save() === false) {
-                throw ExceptionFactory::entityException('Ошибка сохранения заказа');
-            }
+            $order = $this->saveOrder($cart);
 
             if ($this->saveCart($cart, $order->id) === false) {
                 throw ExceptionFactory::entityException('Ошибка сохранения корзины');
@@ -117,7 +107,7 @@ class OrderForm extends Model
      *
      * @throws \yii\db\Exception
      */
-    public function saveCart(Cart $cart, int $orderId): bool
+    private function saveCart(Cart $cart, int $orderId): bool
     {
         foreach ($cart->getProducts() as $product) {
             $orderItem = new OrderItem();
@@ -133,5 +123,32 @@ class OrderForm extends Model
         }
 
         return true;
+    }
+
+    /**
+     * Сохранение заказа
+     *
+     * @param Cart $cart
+     *
+     * @return Order
+     *
+     * @throws \yii\db\Exception
+     */
+    private function saveOrder(Cart $cart): Order
+    {
+        $order = new Order();
+        $order->name = $this->fullName;
+        $order->phone = $this->phone;
+        $order->email = $this->email;
+        $order->address = $this->address;
+        $order->total = $cart->getTotalSum();
+        $order->status = Status::NEW->value;
+        $order->paymentType = $this->paymentMethod;
+
+        if ($order->save() === false) {
+            throw ExceptionFactory::entityException('Ошибка сохранения заказа');
+        }
+
+        return $order;
     }
 }
