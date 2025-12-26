@@ -2,12 +2,12 @@
 
 namespace app\controllers\menu;
 
+use app\exceptions\ExceptionFactory;
 use app\helpers\WebResponse;
 use app\models\Category;
 use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
-use yii\db\Exception;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
@@ -28,7 +28,7 @@ class CategoriesController extends Controller
                     [
                         'actions' => ['create', 'index', 'delete'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['manager'],
                     ],
                 ],
             ],
@@ -52,17 +52,11 @@ class CategoriesController extends Controller
             ],
         ]);
 
-        if (Yii::$app->user->can('manager')) {
-            return $this->render('index', [
-                'dataProvider' => $dataProvider,
-            ]);
-        }
-
-        return $this->redirect(Yii::$app->request->referrer);
+        return $this->render('index', ['dataProvider' => $dataProvider]);
     }
 
     /**
-     * Создание товара
+     * Создание категории
      *
      * @return string|Response
      */
@@ -74,7 +68,7 @@ class CategoriesController extends Controller
 
             if (Yii::$app->request->isPost) {
                 if (!$category->load(Yii::$app->request->post()) || !$category->save()) {
-                    throw new Exception('Ошибка');
+                    throw ExceptionFactory::entityException('Ошибка сохранения');
                 }
 
                 $category->imageFile = UploadedFile::getInstance($category, 'imageFile');
@@ -84,13 +78,13 @@ class CategoriesController extends Controller
                     $category->save(false);
                 }
 
-                Yii::$app->session->setFlash('success', 'Категория успешно создана!');
+                WebResponse::setSuccess('Категория успешно создана!');
 
                 return $this->redirect(['index']);
             }
 
             return $this->render('create', ['category' => $category]);
-        } catch (\Exception $e) {
+        } catch (Throwable $e) {
             WebResponse::setError('Ошибка: ' . $e->getMessage());
         }
 

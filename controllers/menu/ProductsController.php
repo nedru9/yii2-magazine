@@ -2,10 +2,9 @@
 
 namespace app\controllers\menu;
 
+use app\exceptions\ExceptionFactory;
 use app\helpers\WebResponse;
-use app\models\Category;
 use app\models\Product;
-use app\models\ProductSearch;
 use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -30,7 +29,7 @@ class ProductsController extends Controller
                     [
                         'actions' => ['create', 'index', 'delete'],
                         'allow' => true,
-                        'roles' => ['@'],
+                        'roles' => ['manager'],
                     ],
                 ],
             ],
@@ -54,13 +53,7 @@ class ProductsController extends Controller
             ],
         ]);
 
-        if (Yii::$app->user->can('manager')) {
-            return $this->render('index', [
-                'dataProvider' => $dataProvider,
-            ]);
-        }
-
-        return $this->redirect(Yii::$app->request->referrer);
+        return $this->render('index', ['dataProvider' => $dataProvider]);
     }
 
     /**
@@ -76,7 +69,7 @@ class ProductsController extends Controller
 
             if (Yii::$app->request->isPost) {
                 if (!$product->load(Yii::$app->request->post()) || !$product->save()) {
-                    throw new Exception('Ошибка');
+                    throw ExceptionFactory::entityException('Ошибка сохранения');
                 }
 
                 $product->imageFile = UploadedFile::getInstance($product, 'imageFile');
@@ -86,14 +79,14 @@ class ProductsController extends Controller
                     $product->save(false);
                 }
 
-                Yii::$app->session->setFlash('success', 'Товар успешно создан!');
+                WebResponse::setSuccess('Товар успешно создан!');
 
                 return $this->redirect(['index']);
             }
 
             return $this->render('create', ['product' => $product]);
         } catch (Exception $e) {
-            Yii::$app->session->setFlash('error', 'Ошибка: ' . $e->getMessage());
+            WebResponse::setError($e->getMessage());
         }
 
         return $this->redirect(Yii::$app->request->referrer);
@@ -112,11 +105,9 @@ class ProductsController extends Controller
             $product = Product::getProduct(Yii::$app->request->get('id'));
             $product->delete();
         } catch (Throwable $e) {
-            Yii::$app->session->setFlash('error', 'Ошибка: ' . $e->getMessage());
+            WebResponse::setError($e->getMessage());
         }
 
         return $this->redirect(Yii::$app->request->referrer);
     }
-
-
 }

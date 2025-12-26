@@ -89,4 +89,22 @@ class Order extends ActiveRecord
     {
         return $this->hasMany(OrderItem::class, ['orderId' => 'id']);
     }
+
+    /**
+     * Поиск заказа по Id
+     *
+     * @param int $id
+     *
+     * @return self
+     */
+    public static function getOrder(int $id): self
+    {
+        $order = self::findOne($id);
+
+        if (empty($order)) {
+            throw ExceptionFactory::entityException('Заказ не найден');
+        }
+
+        return $order;
+    }
 }

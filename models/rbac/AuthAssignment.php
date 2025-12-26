@@ -100,7 +100,7 @@ class AuthAssignment extends ActiveRecord
     public function newUser(User $userModel): self
     {
         $this->user_id = (string)$userModel->id;
-        $this->item_name = 'user';
+        $this->item_name = AuthItem::USER_ROLE;
 
         return $this;
     }

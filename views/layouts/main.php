@@ -1,7 +1,9 @@
 <?php
 
 /** @var yii\web\View $this */
+
 /** @var string $content */
+
 /** @var int $favoriteCount */
 
 use app\assets\AppAsset;
@@ -224,7 +226,7 @@ $this->beginBody() ?>
                                         <a href="/products">Товары</a>
                                     </li>
                                     <li>
-                                        <a href="/user/orders">Заказы</a>
+                                        <a href="/orders">Заказы</a>
                                     </li>
 
 
@@ -254,7 +256,7 @@ $this->beginBody() ?>
                                 </a>
                             <?php
                             else: ?>
-                                <a class="favorite simple-icon" href="/user/products">
+                                <a class="favorite simple-icon" href="/site/products">
                                     <i class="fa-regular fa-user"></i>
                                 </a>
                                 <a class="favorite simple-icon" href="/user/logout">
