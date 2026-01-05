@@ -201,7 +201,6 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-
     /**
      * @param $password
      *

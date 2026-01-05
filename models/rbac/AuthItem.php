@@ -28,6 +28,7 @@ use yii\db\StaleObjectException;
 class AuthItem extends ActiveRecord
 {
     public const int TYPE_PERMISSION = 2;
+    public const int TYPE_ROLE = 1;
     public const string USER_ROLE = 'user';
     public const string MANAGER_ROLE = 'manager';
 
@@ -50,8 +51,12 @@ class AuthItem extends ActiveRecord
             [['description', 'data'], 'string'],
             [['name', 'rule_name'], 'string', 'max' => 64],
             [['name'], 'unique'],
-            [['rule_name'], 'exist', 'skipOnError' => true,
-                'targetAttribute' => ['rule_name' => 'name']],
+            [
+                ['rule_name'],
+                'exist',
+                'skipOnError' => true,
+                'targetAttribute' => ['rule_name' => 'name']
+            ],
         ];
     }
 
@@ -61,9 +66,9 @@ class AuthItem extends ActiveRecord
     public function attributeLabels(): array
     {
         return [
-            'name' => 'Name',
-            'type' => 'Type',
-            'description' => 'Description',
+            'name' => 'Наименование',
+            'type' => 'Тип',
+            'description' => 'Описание',
             'rule_name' => 'Rule Name',
             'data' => 'Data',
             'created_at' => 'Created At',
@@ -161,11 +166,36 @@ class AuthItem extends ActiveRecord
      * @throws Throwable
      * @throws StaleObjectException
      */
-    public function deleteByName(string $name): bool
+    public static function deleteByName(string $name): bool
     {
-        return $this->find()
+        return self::find()
             ->where(['name' => $name])
             ->one()
             ->delete();
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return array|ActiveRecord|null
+     */
+    public static function getByName(string $name): array|ActiveRecord|null
+    {
+        return self::find()
+            ->where(['name' => $name])
+            ->one();
+    }
+
+    /**
+     * Получение списка типов
+     *
+     * @return string[]
+     */
+    public static function getList(): array
+    {
+        return [
+            self::TYPE_ROLE => 'Роль',
+            self::TYPE_PERMISSION => 'Разрешение',
+        ];
     }
 }

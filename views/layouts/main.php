@@ -233,7 +233,7 @@ $this->beginBody() ?>
                                         <a href="/user">Пользователи</a>
                                     </li>
                                     <li>
-                                        <a href="/user/roles">Роли</a>
+                                        <a href="/roles">Роли</a>
                                     </li>
                                 <?php
                                 endif; ?>
