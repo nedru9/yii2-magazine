@@ -8,6 +8,7 @@ use Exception;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\rbac\Permission;
+use yii\rbac\Role;
 use yii\web\IdentityInterface;
 
 
@@ -33,6 +34,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             [['email', 'password_hash'], 'required'],
             [['id', 'blocked_at'], 'integer'],
+            [['role'], 'string'],
             [['email'], 'unique'],
             [
                 [
@@ -132,6 +134,18 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
+     * Получение роли
+     *
+     * @return Role|null
+     */
+    public function getRoleForUser(): Role|null
+    {
+        $role = array_values(Yii::$app->authManager->getRolesByUser($this->id));
+
+        return !empty($role[0]) ? $role[0] : null;
+    }
+
+    /**
      * @param string $permissionName
      * @param array $params
      * @param bool $allowCaching
@@ -153,5 +167,35 @@ class User extends ActiveRecord implements IdentityInterface
         }
 
         return $this->userPermissions;
+    }
+
+    /**
+     * Поиск пользователя по Id
+     *
+     * @param int $id
+     *
+     * @return self
+     */
+    public static function getUser(int $id): self
+    {
+        $user = self::findOne($id);
+
+        if (empty($user)) {
+            throw ExceptionFactory::entityException('Пользователь не найден');
+        }
+
+        return $user;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels(): array
+    {
+        return [
+            'id' => 'ID',
+            'email' => 'Email',
+            'role' => 'Роль',
+        ];
     }
 }

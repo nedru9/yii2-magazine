@@ -200,11 +200,11 @@ $this->beginBody() ?>
                     <div class="col-auto">
                         <nav class="main-menu d-none d-lg-inline-block">
                             <ul>
-                                <li>
-                                    <a href="/">Главная</a>
-                                </li>
                                 <?php
                                 if (!Yii::$app->user->can('manager')): ?>
+                                    <li>
+                                        <a href="/">Главная</a>
+                                    </li>
                                     <li>
                                         <a href="/site/shop">Товары</a>
                                     </li>
@@ -230,10 +230,10 @@ $this->beginBody() ?>
                                         <a href="/orders">Заказы</a>
                                     </li>
                                     <li>
-                                        <a href="/users">Пользователи</a>
+                                        <a href="/user">Пользователи</a>
                                     </li>
                                     <li>
-                                        <a href="/users/roles">Роли</a>
+                                        <a href="/user/roles">Роли</a>
                                     </li>
                                 <?php
                                 endif; ?>

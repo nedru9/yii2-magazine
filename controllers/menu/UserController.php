@@ -44,9 +44,34 @@ class UserController extends Controller
                         'allow' => true,
                         'roles' => [AuthItem::USER_ROLE],
                     ],
+                    [
+                        'actions' => ['index', 'delete', 'edit'],
+                        'allow' => true,
+                        'roles' => [AuthItem::MANAGER_ROLE],
+                    ],
                 ],
             ],
         ];
+    }
+
+    /**
+     * Список пользователей
+     *
+     * @return string
+     */
+    public function actionIndex(): string
+    {
+        $query = User::find();
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'totalCount' => $query->count(),
+                'pageSize' => 12,
+                'pageSizeLimit' => [1, 100],
+            ],
+        ]);
+
+        return $this->render('index', ['dataProvider' => $dataProvider]);
     }
 
     /**
@@ -133,5 +158,64 @@ class UserController extends Controller
         ]);
 
         return $this->render('cabinet', ['dataProvider' => $dataProvider]);
+    }
+
+    /**
+     * Удаление пользователя
+     *
+     * @return string|Response
+     *
+     * @throws Throwable
+     */
+    public function actionDelete(): string|Response
+    {
+        try {
+            $user = User::getUser(Yii::$app->request->get('id'));
+            $user->delete();
+        } catch (Throwable $e) {
+            WebResponse::setError($e->getMessage());
+        }
+
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    /**
+     * Редактирование пользователя
+     *
+     * @return string|Response
+     *
+     * @throws Throwable
+     */
+    public function actionEdit(): string|Response
+    {
+        try {
+            $user = User::getUser(Yii::$app->request->get('id'));
+            $roles = Yii::$app->authManager->getRoles();
+
+            if (Yii::$app->request->isPost) {
+                if (!$user->load(Yii::$app->request->post()) || !$user->save()) {
+                    throw ExceptionFactory::entityException('Ошибка сохранения');
+                }
+
+                $selectedRole = $user->role;
+
+                if (!empty($selectedRole)) {
+                    $authManager = Yii::$app->authManager;
+                    $authManager->revokeAll($user->id);
+                    $role = $authManager->getRole($selectedRole);
+                    $authManager->assign($role, $user->id);
+                }
+
+                WebResponse::setSuccess('Пользователь успешно сохранен!');
+
+                return $this->redirect(['index']);
+            }
+
+            return $this->render('edit', ['user' => $user, 'roles' => $roles]);
+        } catch (Throwable $e) {
+            WebResponse::setError($e->getMessage());
+        }
+
+        return $this->redirect(Yii::$app->request->referrer);
     }
 }
