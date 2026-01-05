@@ -9,7 +9,7 @@ use kartik\select2\Select2;
 use yii\bootstrap\Html;
 use yii\widgets\ActiveForm;
 
-$this->title = 'Изменение заказа';
+$this->title = 'Просмотр заказа';
 
 ?>
 
@@ -18,15 +18,15 @@ $this->title = 'Изменение заказа';
     <?php
     $form = ActiveForm::begin(
         [
-            'id' => 'edit-order-form',
+            'id' => 'view-order-form',
         ]
     );
     ?>
-    <?= $form->field($order, 'name')->textInput(); ?>
-    <?= $form->field($order, 'phone')->textInput(); ?>
-    <?= $form->field($order, 'email')->textInput(); ?>
-    <?= $form->field($order, 'address')->textInput(); ?>
-    <?= $form->field($order, 'total')->textInput(); ?>
+    <?= $form->field($order, 'name')->textInput(['disabled' => true]); ?>
+    <?= $form->field($order, 'phone')->textInput(['disabled' => true]); ?>
+    <?= $form->field($order, 'email')->textInput(['disabled' => true]); ?>
+    <?= $form->field($order, 'address')->textInput(['disabled' => true]); ?>
+    <?= $form->field($order, 'total')->textInput(['disabled' => true]); ?>
 
 
     <?= $form->field($order, 'paymentType')->radioList(
@@ -35,7 +35,7 @@ $this->title = 'Изменение заказа';
             'item' => function ($index, $label, $name, $checked, $value) {
                 return <<<HTML
                                 <li class="wc_payment_method payment_method_bacs">
-                                    <input type="radio" name="{$name}" value="{$value}" checked class="input-radio">
+                                    <input type="radio" name="{$name}" value="{$value}" checked disabled class="input-radio">
                                     <label for="{$name}">{$label}</label>
                                 </li>
                                 HTML;
@@ -47,12 +47,16 @@ $this->title = 'Изменение заказа';
         'pluginOptions' => [
             'allowClear' => true,
         ],
+        'options' => [
+            'disabled' => 'true',
+        ],
     ]); ?>
 
     <div>Состав заказа:</div>
     <table>
         <thead>
         <tr>
+            <th>Изображение</th>
             <th>Наименование</th>
             <th>Цена</th>
             <th>Количество</th>
@@ -63,6 +67,10 @@ $this->title = 'Изменение заказа';
         <?php
         foreach ($order->items as $orderItem): ?>
             <tr>
+                <td>
+                    <img width="100px" src="<?= $orderItem->product->image; ?>"
+                         alt="<?= $orderItem->product->title; ?>">
+                </td>
                 <td>
                     <?= $orderItem->product->title; ?>
                 </td>
@@ -80,8 +88,6 @@ $this->title = 'Изменение заказа';
         endforeach; ?>
         </tbody>
     </table>
-
-    <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary']); ?>
     <?php
     ActiveForm::end(); ?>
 </div>

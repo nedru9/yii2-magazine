@@ -5,11 +5,14 @@ namespace app\controllers\menu;
 use app\exceptions\ExceptionFactory;
 use app\helpers\WebResponse;
 use app\models\LoginForm;
+use app\models\Order;
+use app\models\rbac\AuthItem;
 use app\models\RegisterForm;
 use app\models\User;
 use Exception;
 use Throwable;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
@@ -35,6 +38,11 @@ class UserController extends Controller
                         'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['cabinet'],
+                        'allow' => true,
+                        'roles' => [AuthItem::USER_ROLE],
                     ],
                 ],
             ],
@@ -105,5 +113,25 @@ class UserController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    /**
+     * Кабинет пользователя
+     *
+     * @return string
+     */
+    public function actionCabinet(): string
+    {
+        $query = Order::find()->where(['email' => Yii::$app->user->identity->email])->orderBy(['id' => SORT_DESC]);
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'totalCount' => $query->count(),
+                'pageSize' => 12,
+                'pageSizeLimit' => [1, 100],
+            ],
+        ]);
+
+        return $this->render('cabinet', ['dataProvider' => $dataProvider]);
     }
 }

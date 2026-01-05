@@ -46,6 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <?= $form->field($orderForm, 'email')
                         ->textInput([
                             'class' => 'form-control',
+                            'value' => (Yii::$app->user->identity->email ?? ''),
                         ]) ?>
                     <?= $form->field($orderForm, 'phone')
                         ->textInput([

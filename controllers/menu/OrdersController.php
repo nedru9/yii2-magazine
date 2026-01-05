@@ -5,6 +5,7 @@ namespace app\controllers\menu;
 use app\exceptions\ExceptionFactory;
 use app\helpers\WebResponse;
 use app\models\Order;
+use app\models\rbac\AuthItem;
 use Throwable;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -27,7 +28,12 @@ class OrdersController extends Controller
                     [
                         'actions' => ['index', 'delete', 'edit'],
                         'allow' => true,
-                        'roles' => ['manager'],
+                        'roles' => [AuthItem::MANAGER_ROLE],
+                    ],
+                    [
+                        'actions' => ['view'],
+                        'allow' => true,
+                        'roles' => [AuthItem::USER_ROLE],
                     ],
                 ],
             ],
@@ -96,6 +102,29 @@ class OrdersController extends Controller
             }
 
             return $this->render('edit', ['order' => $order]);
+        } catch (Throwable $e) {
+            WebResponse::setError($e->getMessage());
+        }
+
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    /**
+     * Просмотр заказа
+     *
+     * @return string|Response
+     *
+     * @throws Throwable
+     */
+    public function actionView(): string|Response
+    {
+        try {
+            $order = Order::findOne([
+                'email' => Yii::$app->user->identity->email,
+                'id' => Yii::$app->request->get('id')
+            ]);
+
+            return $this->render('view', ['order' => $order]);
         } catch (Throwable $e) {
             WebResponse::setError($e->getMessage());
         }

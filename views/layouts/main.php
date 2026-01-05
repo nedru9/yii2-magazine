@@ -8,6 +8,7 @@
 
 use app\assets\AppAsset;
 use app\entities\Favorite;
+use app\models\rbac\AuthItem;
 use app\widgets\Alert;
 use yii\bootstrap\Html;
 use yii\widgets\Breadcrumbs;
@@ -228,8 +229,12 @@ $this->beginBody() ?>
                                     <li>
                                         <a href="/orders">Заказы</a>
                                     </li>
-
-
+                                    <li>
+                                        <a href="/users">Пользователи</a>
+                                    </li>
+                                    <li>
+                                        <a href="/users/roles">Роли</a>
+                                    </li>
                                 <?php
                                 endif; ?>
                             </ul>
@@ -256,9 +261,13 @@ $this->beginBody() ?>
                                 </a>
                             <?php
                             else: ?>
-                                <a class="favorite simple-icon" href="/site/products">
-                                    <i class="fa-regular fa-user"></i>
-                                </a>
+                                <?php
+                                if (Yii::$app->user->can(AuthItem::USER_ROLE)): ?>
+                                    <a class="favorite simple-icon" href="/user/cabinet">
+                                        <i class="fa-regular fa-user"></i>
+                                    </a>
+                                <?php
+                                endif; ?>
                                 <a class="favorite simple-icon" href="/user/logout">
                                     <i class="fa-regular fa-sign-out-alt"></i>
                                 </a>

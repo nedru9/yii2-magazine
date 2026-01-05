@@ -29,6 +29,7 @@ class AuthItem extends ActiveRecord
 {
     public const int TYPE_PERMISSION = 2;
     public const string USER_ROLE = 'user';
+    public const string MANAGER_ROLE = 'manager';
 
     /**
      * {@inheritdoc}

@@ -15555,4 +15555,9 @@ span.select2-selection.select2-selection--single:focus {
     object-fit: cover;
 }
 
+
+.payment_method_bacs {
+    list-style-type: none;
+}
+
 /*# sourceMappingURL=style.css.map */
