@@ -28,6 +28,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public string $role = '';
     public array $permissions = [];
+    public string $newPassword = '';
 
     public function rules(): array
     {
@@ -196,6 +197,35 @@ class User extends ActiveRecord implements IdentityInterface
             'id' => 'ID',
             'email' => 'Email',
             'role' => 'Роль',
+            'newPassword' => 'Новый пароль',
         ];
+    }
+
+
+    /**
+     * @param $password
+     *
+     * @return void
+     *
+     * @throws \yii\base\Exception
+     */
+    public function setPassword($password): void
+    {
+        $this->password_hash = Yii::$app->security->generatePasswordHash($password);
+    }
+
+    /**
+     * Загрузка роли пользователя
+     *
+     * @return void
+     */
+    public function loadUserRole(): void
+    {
+        $authManager = Yii::$app->authManager;
+        $userRole = $authManager->getRolesByUser($this->id);
+
+        if (!empty($userRole)) {
+            $this->role = key($userRole);
+        }
     }
 }

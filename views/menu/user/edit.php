@@ -1,6 +1,7 @@
 <?php
 
 /** @var User $user */
+
 /** @var Role[] $roles */
 
 use app\models\User;
@@ -24,9 +25,11 @@ $this->title = 'Изменение пользователя';
     ?>
     <?= $form->field($user, 'email')->textInput(); ?>
     <?= $form->field($user, 'role')->dropDownList(
-        ArrayHelper::map($roles, 'name', 'description'), // Преобразуем массив ролей в нужный формат
-        ['prompt' => 'Выберите роль'] // Добавляем пустой элемент в начало списка
+        ArrayHelper::map($roles, 'name', 'description'),
+        ['prompt' => 'Выберите роль']
     ); ?>
+    <?= $form->field($user, 'newPassword')->passwordInput(); ?>
+
 
     <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary']); ?>
     <?php

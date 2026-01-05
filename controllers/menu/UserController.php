@@ -45,7 +45,7 @@ class UserController extends Controller
                         'roles' => [AuthItem::USER_ROLE],
                     ],
                     [
-                        'actions' => ['index', 'delete', 'edit'],
+                        'actions' => ['index', 'delete', 'edit', 'login-user'],
                         'allow' => true,
                         'roles' => [AuthItem::MANAGER_ROLE],
                     ],
@@ -191,6 +191,7 @@ class UserController extends Controller
         try {
             $user = User::getUser(Yii::$app->request->get('id'));
             $roles = Yii::$app->authManager->getRoles();
+            $user->loadUserRole();
 
             if (Yii::$app->request->isPost) {
                 if (!$user->load(Yii::$app->request->post()) || !$user->save()) {
@@ -206,12 +207,36 @@ class UserController extends Controller
                     $authManager->assign($role, $user->id);
                 }
 
+                if (!empty($user->newPassword)) {
+                    $user->setPassword($user->newPassword);
+                    $user->save(false);
+                }
+
                 WebResponse::setSuccess('Пользователь успешно сохранен!');
 
                 return $this->redirect(['index']);
             }
 
             return $this->render('edit', ['user' => $user, 'roles' => $roles]);
+        } catch (Throwable $e) {
+            WebResponse::setError($e->getMessage());
+        }
+
+        return $this->redirect(Yii::$app->request->referrer);
+    }
+
+    /**
+     * Вход под пользователем
+     *
+     * @return Response
+     */
+    public function actionLoginUser(): Response
+    {
+        try {
+            $user = User::getUser(Yii::$app->request->get('id'));
+            Yii::$app->user->login($user);
+
+            return $this->goHome();
         } catch (Throwable $e) {
             WebResponse::setError($e->getMessage());
         }
